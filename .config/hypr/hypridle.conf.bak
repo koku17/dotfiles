@@ -1,0 +1,37 @@
+$hdmi_desc = hyprctl monitors -j | jq -r '.[] | select(.name == "HDMI-A-1") .description'
+$hdmi_width = hyprctl monitors -j | jq -r '.[] | select(.name == "HDMI-A-1") .width'
+$hdmi_height= hyprctl monitors -j | jq -r '.[] | select(.name == "HDMI-A-1") .height'
+$hdmi_rr = hyprctl monitors -j | jq -r '.[] | select(.name == "HDMI-A-1") .refreshRate'
+$hdmi_scale = hyprctl monitors -j | jq -r '.[] | select(.name == "HDMI-A-1") .scale'
+
+$monitor_disable = hyprctl keyword monitor 'desc:Acer Technologies XB253Q TH5SI001852L,disable'
+$monitor_max = hyprctl keyword monitor 'desc:Acer Technologies XB253Q TH5SI001852L, 1920x1080@239.75999, auto-right,1'
+$monitor_med = hyprctl keyword monitor 'desc:Acer Technologies XB253Q TH5SI001852L, 1920x1080@144.75999, auto-right,1'
+#$monitor_min = hyprctl keyword monitor 'desc:Acer Technologies XB253Q TH5SI001852L, 1920x1080@60.75999, auto-right,0.5'
+
+$reset_twice = $monitor_disable ; sleep .1 ; $monitor_max ; sleep .1 ; $monitor_disable ; sleep .1 ; $monitor_max
+#$video_bg = pkill mpvpaper ; mpvpaper -l top -vs -o "no-audio loop" '*' ~/Wallpapers/Video/itachi-uchiha.1920x1080.mp4 -f
+
+general {
+    #lock_cmd = sleep .1 ; pidof hyprlock || hyprlock
+    before_sleep_cmd = hyprctl dpms off ; sleep .1 ; pidof hyprlock || hyprlock
+    #unlock_cmd = loginctl unlock-session
+    #after_sleep_cmd = hyprctl dispatch dpms on ; brightnessctl -r ; $reset_twice
+    after_sleep_cmd = hyprctl dispatch dpms on ; brightnessctl -r
+	#after_sleep_cmd = brightnessctl -r ; pidof hyprlock || ($video_bg ; hyprlock ; pkill mpvpaper)
+    ignore_dbus_inhibit = false
+    ignore_systemd_inhibit = false
+}
+
+listener {
+    timeout = 60
+    on-timeout = brightnessctl -s ; brightnessctl set 0%
+    on-resume = brightnessctl -r
+}
+
+listener {
+    timeout = 120
+    on-timeout = systemctl suspend
+    #on-resume = brightnessctl -r ; pidof hyprlock || hyprlock
+    #on-resume = brightnessctl -r ; pidof hyprlock || ($video_bg ; hyprlock ; pkill mpvpaper)
+}

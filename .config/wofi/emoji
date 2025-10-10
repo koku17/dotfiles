@@ -1,0 +1,12 @@
+# Window settings
+location=center
+show=dmenu
+prompt=Select Emoji
+layer=overlay
+matching=multi-contains
+
+# Layout
+insensitive=true
+hide_scroll=true
+columns=1
+#sort_order=alphabetical
