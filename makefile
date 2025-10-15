@@ -1,3 +1,7 @@
 config:
-	@echo cp -r .config/*/ ~/.config
 	@cp -r .config/*/ ~/.config
+	@cp -r .*/ ~
+
+update:
+	@cp -r ~/.gnome2 .
+	@cp -r ~/.config/{alacritty,ghostty,hypr,kitty,mpv,swayimg,waybar,wlogout,wofi,zathura}/ .config

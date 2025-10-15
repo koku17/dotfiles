@@ -1,6 +1,6 @@
 * {
 	/* `otf-font-awesome` is required to be installed for icons */
-	font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+	font-family: NotoSans Nerd Font, Roboto, Helvetica, Arial, sans-serif;
 	font-size: 13px;
 	border-radius: 10px 10px 10px 10px;
 }
@@ -198,6 +198,7 @@ label:focus {
 }
 
 #network.disconnected {
+	color: rgba(255, 0, 0, 1);
 	/*background-color: #f53c3c;*/
 }
 
