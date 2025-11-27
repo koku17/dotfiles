@@ -12,15 +12,16 @@
   "modules-right": [
     "idle_inhibitor",
     "pulseaudio",
-    "network",
+    //"network",
     "cpu",
     "memory",
     "temperature",
     "backlight",
     "hyprland/language",
+    "tray",
     "battery",
-    "clock",
-    "tray"
+		"custom/clockindicator",
+    "clock"
   ],
   "hyprland/language": {
     "format": "󰥻  {shortDescription}",
@@ -141,6 +142,11 @@
       "hibernate": "systemctl hibernate"
     }
   },
+	"custom/clockindicator": {
+		"exec": "~/.config/waybar/scripts/clock-icons.sh o",
+		"interval": 60,
+		"tooltip": false
+	},
   "custom/shree": {
     "format": "॥श्री॥"
   }

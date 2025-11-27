@@ -2,13 +2,11 @@
 windowrule = plugin: hyprbars: nobar, class: wofi
 windowrule = noborder, class: wofi
 
-# feh
-windowrule = size 50%, class:feh
-windowrule = float, class:feh
+# alacritty
+windowrule = tile, class: Alacritty, xwayland:1
 
-# Terminal
-#windowrule = bordersize 2, class: Alacritty, initialClass: Alacritty, initialTitle: Alacritty
-windowrule = tile, class: Alacritty, initialClass: Alacritty, initialTitle: Alacritty, xwayland: 1
+# swayimg
+windowrule = opaque, class: swayimg_(.*)
 
 # Kega fusion
 windowrule = float, initialClass: Fusion
@@ -19,7 +17,6 @@ windowrule = float, initialClass: Fusion, initialTitle: Load Genesis/32X ROM
 # mpv
 windowrule = opaque, class: mpv
 windowrule = fullscreen, class: mpv, initialTitle: (.*)(Episode)(.*)(- mpv)
-#windowrule = keepaspectratio, class: mpv
 windowrule = float, class: mpv, title: .*.gif - mpv
 
 # disable opacity for some apps
@@ -38,12 +35,10 @@ windowrule = float, title: Virtual Machine Manager
 #windowrule = maxsize 1536 864, class: Waydroid, title: Waydroid
 #windowrule = minsize 1536 864, class: Waydroid, title: Waydroid
 windowrule = fullscreen, class: Waydroid, title: Waydroid
+windowrule = fullscreen, class: waydroid(.*)
+
 #windowrule = maxsize 432 768, class: Waydroid, title: Waydroid
 #windowrule = minsize 432 768, class: Waydroid, title: Waydroid
-
-#windowrule = keepaspectratio, class: Waydroid
-#windowrule = forcergbx, class: Waydroid
-#windowrule = opacity 0.5, class: Waydroid
 
 # V4L2 QT capture
 windowrule = forcergbx, title: V4L2 Capture (.*)
@@ -57,8 +52,6 @@ windowrule = opaque, class: chromium
 windowrule = float, initialTitle: Chromium
 windowrule = size 992 620, initialTitle: Chromium
 
-windowrule = float, class: chromium, title: Save File, initialClass: chromium, initialTitle: Save File
-
 # Dev tools
 windowrule = float, class: chromium, title: DevTools.*, initialClass: chromium, initialTitle: DevTools.*
 windowrule = size 50%, class: chromium, title: DevTools.*, initialClass: chromium, initialTitle: DevTools.*
@@ -69,12 +62,20 @@ windowrule = float, title: nwg-look
 windowrule = opacity .9, title: auto-cpufreq
 
 # ghostty
-#windowrule = opacity .9, class: com.mitchellh.ghostty
+windowrule = opacity .8, class: com.mitchellh.ghostty
 
 # nemo file manager
 windowrule = float, class: nemo
-windowrule = size 70%, class: nemo
-windowrule = opacity .9, class: nemo
+windowrule = size 60%, class: nemo
+windowrule = opacity .8, class: nemo
+
+# python output popups
+windowrule = float, initialclass: python3, class: python3, title: Figure (.*)
+
+# chromium
+windowrule = float, class: chromium, title: Save File, initialClass: chromium, initialTitle: Save File
+windowrule = float, class: xdg-desktop-portal-gtk, title: All Files, initialClass: xdg-desktop-portal-gtk
+
 #windowrule = float, class: nemo, title: (.*)(Properties), initialClass: nemo, initialTitle: (.*)(Properties)
 #windowrule = float, class: nemo, title: Custom application, initialClass: nemo, initialTitle: Custom application
 #windowrule = float, class: nemo, title: Open with, initialClass: nemo, initialTitle: Open with
@@ -85,7 +86,8 @@ windowrule = opacity .9, class: nemo
 # layer-rules
 #windowrule = opacity .7, class: chromium
 layerrule = blur, waybar
-layerrule = blur, showkeys
+#layerrule = blur, showkeys
+#layerrule = abovelock, swaync-control-center
 #layerrule = blur, quickshell # this blurs all quickshell instances
 layerrule = blur, wofi
 layerrule = dimaround, wofi
@@ -99,7 +101,7 @@ layerrule = ignorezero, swaync-control-center
 layerrule = noanim, hyprpicker
 layerrule = noanim, selection
 
-windowrule = float, class: vimiv
+#windowrule = float, class: vimiv
 windowrule = float, initialClass: chromium, initialTitle: DevTools
 #windowrule = noborder, class: chromium
 windowrule = float, class: qalculate-gtk
@@ -109,6 +111,7 @@ windowrule = float, class: xdg-desktop-portal-gtk, title: (Open File)
 # mission control
 windowrule = float, class: io.missioncenter.MissionCenter, title: Mission Center
 windowrule = minsize 1110 590, class: io.missioncenter.MissionCenter, title: Mission Center
+#windowrule = forcergbx, class: io.missioncenter.MissionCenter, title: Mission Center
 
 # Allow tearing for games
 #windowrule = immediate, class: Xonotic

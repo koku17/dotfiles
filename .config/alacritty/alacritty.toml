@@ -22,7 +22,7 @@ level = "Normal"
 
 [scrolling]
 history = 100000
-multiplier = 1
+multiplier = 3
 
 [font]
 normal = {family = "FantasqueSansM Nerd Font Mono", style = "Regular"}

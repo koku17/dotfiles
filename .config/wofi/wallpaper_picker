@@ -1,0 +1,12 @@
+location=center
+show=dmenu
+prompt=Select Wallpaper
+layer=overlay
+
+columns=3
+image_size=250x141
+allow_images=true
+insensitive=true
+hide_scroll=true
+
+style_path=wallpaper.css
