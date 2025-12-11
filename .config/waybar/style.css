@@ -1,8 +1,12 @@
 * {
 	/* `otf-font-awesome` is required to be installed for icons */
 	font-family: NotoSans Nerd Font, Roboto, Helvetica, Arial, sans-serif;
-	font-size: 13px;
+	font-size: 12px;
 	border-radius: 10px 10px 10px 10px;
+}
+
+tooltip {
+  opacity:0.75;
 }
 
 window#waybar {
@@ -91,7 +95,7 @@ button:hover {
 #tray,
 #mode,
 #idle_inhibitor {
-	padding: 0 7px;
+	padding: 0 5px;
 	color: #ffffff;
 	background-color: transparent;
 }
@@ -104,9 +108,11 @@ button:hover {
 
 #clock {
 	padding-left: 2px;
-	margin-right: 10px;
 }
 
+#custom-notification {
+	margin-right: 15px;
+}
 #workspaces {
 	margin: 0 4px;
 }
