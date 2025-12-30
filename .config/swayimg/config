@@ -5,13 +5,17 @@ history=0
 
 [gallery]
 fill=no
+Space=next
+ShiftSpace=previous
 
 [info]
 show=no
 
-[keys]
+[keys.viewer]
 f=fullscreen
-Space=next
+Space=next_file
+Shift + Space=prev_file
+BackSpace=prev_file
 
 [list]
 recursive=no

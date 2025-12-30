@@ -1,107 +1,113 @@
 // -*- mode: jsonc -*-
 {
-  "height": 18,
-  "spacing": 4,
-  "justify": "center",
-  "modules-left": [
-    "hyprland/workspaces"
-  ],
-  "modules-center": [
-    "custom/shree"
-  ],
-  "modules-right": [
-    "idle_inhibitor",
-    "pulseaudio",
-    //"network",
-    "cpu",
-    "memory",
-    "temperature",
-    "backlight",
-    "hyprland/language",
-    "tray",
-    "battery",
+	"height": 18,
+	"spacing": 4,
+	"justify": "center",
+	"modules-left": [
+		"hyprland/workspaces"
+	],
+	"modules-center": [
+		"custom/shree"
+	],
+	"modules-right": [
+		"idle_inhibitor",
+		"pulseaudio",
+		//"network",
+		"cpu",
+		"memory",
+		"temperature",
+		"backlight",
+		//"custom/brightness",
+		"hyprland/language",
+		"tray",
+		"battery",
 		"custom/clockindicator",
-    "clock",
+		"clock",
 		"custom/notification"
-  ],
-  "hyprland/language": {
-    "format": "󰥻  {shortDescription}"
-    //"tooltip": true,
-    //"tooltip-format": "{long}"
-  },
-  "idle_inhibitor": {
-    "format": "{icon} ",
-    "format-icons": {
-      "activated": "",
-      "deactivated": ""
-    }
-  },
-  "tray": {
-    "spacing": 10
-  },
-  "clock": {
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "{:%d / %m / %Y}",
-    "format": "{:%I : %M %p}"
-  },
-  "cpu": {
-    "format": "  {usage}%",
-    "tooltip": false
-  },
-  "memory": {
-    "format": "  {}%"
-  },
-  "temperature": {
-    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
-    "input-filename": "temp1_input",
-    "interval": 5,
-    "critical-threshold": 80,
-    "format": "{icon} {temperatureC}°C",
-    "format-icons": ["", "", "", "", ""]
-  },
-  "backlight": {
-    "format": "{icon}  {percent}%",
-    //"format-icons": ["", "", "", "", "", "", "", "", ""]
-    "format-icons": ["", "󰖨"]
-  },
-  "battery": {
-    "states": {
-      "good": 60,
-      "warning": 30,
-      "critical": 20 
-    },
-    "format": "{icon}   {capacity}%",
-    "format-full": "{icon}  {capacity}%",
-    "full-at": 100,
-    "format-charging": " {capacity}%",
-    "format-plugged": " {capacity}%",
-    "format-alt": "{time} {icon}",
-    "format-icons": ["", "", "", "", ""],
-    "interval": 10
-  },
-  "pulseaudio": {
-      "scroll-step": 5,
-      "format": "{volume}% {icon}  {format_source}",
-      "format-bluetooth": "{volume}% {icon} {format_source}",
-      "format-bluetooth-muted": "󰸈{icon} {format_source}",
-      "format-muted": "󰸈  {format_source}",
-      "format-source": "{volume}% ",
-      "format-source-muted": "",
-      "format-icons": {
-          "headphone": "",
-          "hands-free": "",
-          "headset": "",
-          "phone": "",
-          "portable": "",
-          "car": "",
-          "default": ["", "", ""]
-      },
-      "on-click": "pavucontrol",
-      "on-click-right": "pamixer --toggle-mute ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
-      "on-click-middle": "pamixer -t --source alsa_input.pci-0000_05_00.6.HiFi__Mic1__source",
-  "on-scroll-up":"pamixer -i 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
-  "on-scroll-down":"pamixer -d 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
-  },
+	],
+	"hyprland/language": {
+		"format": "󰥻	{shortDescription}"
+		//"tooltip": true,
+		//"tooltip-format": "{long}"
+	},
+	"idle_inhibitor": {
+		"format": "{icon} ",
+		"format-icons": {
+			"activated": "",
+			"deactivated": ""
+		}
+	},
+	"tray": {
+		"spacing": 10
+	},
+	"clock": {
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": "{:%d / %m / %Y}",
+		"format": "{:%I : %M %p}"
+	},
+	"cpu": {
+		"format": "	{usage}%",
+		"tooltip": false
+	},
+	"memory": {
+		"format": "	{}%"
+	},
+	"temperature": {
+		//"hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+		//"input-filename": "temp1_input",
+		"interval": 5,
+		"critical-threshold": 80,
+		"format": "{icon} {temperatureC}°C",
+		"format-icons": ["", "", "", "", ""]
+	},
+	"backlight": {
+		"format": "{icon}	{percent}%",
+		"format-icons": ["", "󰖨"]
+	},
+	//"custom/brightness": {
+	//	"exec-on-event": true,
+	//	"on-scroll-up": "sh ~/.scripts/brightness_control.sh + 1",
+	//	"on-scroll-down": "sh ~/.scripts/brightness_control.sh + 1",
+	//	"interval": "once"
+	//},
+	"battery": {
+		"states": {
+			"good": 60,
+			"warning": 30,
+			"critical": 20 
+		},
+		"format": "{icon}	 {capacity}%",
+		"format-full": "{icon}	{capacity}%",
+		"full-at": 100,
+		"format-charging": " {capacity}%",
+		"format-plugged": " {capacity}%",
+		"format-alt": "{time} {icon}",
+		"format-icons": ["", "", "", "", ""],
+		"interval": 10
+	},
+	"pulseaudio": {
+			"scroll-step": 5,
+			"format": "{volume}% {icon}	{format_source}",
+			"format-bluetooth": "{volume}% {icon} {format_source}",
+			"format-bluetooth-muted": "󰸈{icon} {format_source}",
+			"format-muted": "󰸈	{format_source}",
+			"format-source": "{volume}% ",
+			"format-source-muted": "",
+			"format-icons": {
+					"headphone": "",
+					"hands-free": "",
+					"headset": "",
+					"phone": "",
+					"portable": "",
+					"car": "",
+					"default": ["", "", ""]
+			},
+			"on-click": "pavucontrol",
+			"on-click-right": "pamixer --toggle-mute ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
+			"on-click-middle": "pamixer -t --source alsa_input.pci-0000_05_00.6.HiFi__Mic1__source",
+	"on-scroll-up":"pamixer -i 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
+	"on-scroll-down":"pamixer -d 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
+	},
 	"custom/clockindicator": {
 		"exec": "~/.scripts/clock-icons.sh o",
 		"interval": 60,
@@ -111,10 +117,10 @@
 		"format": "",
 		"interval": "once", 
 		"on-click": "swaync-client -t",
-    "tooltip-format": "Notifications"
+		"tooltip-format": "Notifications"
 	},
-  "custom/shree": {
-    "format": "॥श्री॥",
+	"custom/shree": {
+		"format": "॥श्री॥",
 		"interval": "once"
-  }
+	}
 }
