@@ -17,7 +17,7 @@
 		"memory",
 		"temperature",
 		"backlight",
-		//"custom/brightness",
+		"custom/hyprsunset",
 		"hyprland/language",
 		"tray",
 		"battery",
@@ -26,7 +26,7 @@
 		"custom/notification"
 	],
 	"hyprland/language": {
-		"format": "󰥻	{shortDescription}"
+		"format": "󰥻 {shortDescription}"
 		//"tooltip": true,
 		//"tooltip-format": "{long}"
 	},
@@ -46,11 +46,11 @@
 		"format": "{:%I : %M %p}"
 	},
 	"cpu": {
-		"format": "	{usage}%",
+		"format": " {usage}%",
 		"tooltip": false
 	},
 	"memory": {
-		"format": "	{}%"
+		"format": " {}%"
 	},
 	"temperature": {
 		//"hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
@@ -61,23 +61,24 @@
 		"format-icons": ["", "", "", "", ""]
 	},
 	"backlight": {
-		"format": "{icon}	{percent}%",
+		"format": "{icon} {percent}%",
 		"format-icons": ["", "󰖨"]
 	},
-	//"custom/brightness": {
-	//	"exec-on-event": true,
-	//	"on-scroll-up": "sh ~/.scripts/brightness_control.sh + 1",
-	//	"on-scroll-down": "sh ~/.scripts/brightness_control.sh + 1",
-	//	"interval": "once"
-	//},
+	"custom/hyprsunset": {
+		"exec": "sh ~/.scripts/hyprsunset.sh",
+		"on-click": "sh ~/.scripts/hyprsunset.sh -",
+		"on-click-right": "sh ~/.scripts/hyprsunset.sh +",
+		"on-click-middle": "sh ~/.scripts/hyprsunset.sh toggle",
+		"interval": "once"
+	},
 	"battery": {
 		"states": {
 			"good": 60,
 			"warning": 30,
 			"critical": 20 
 		},
-		"format": "{icon}	 {capacity}%",
-		"format-full": "{icon}	{capacity}%",
+		"format": "{icon}  {capacity}%",
+		"format-full": "{icon}  {capacity}%",
 		"full-at": 100,
 		"format-charging": " {capacity}%",
 		"format-plugged": " {capacity}%",
@@ -87,10 +88,10 @@
 	},
 	"pulseaudio": {
 			"scroll-step": 5,
-			"format": "{volume}% {icon}	{format_source}",
+			"format": "{volume}% {icon} {format_source}",
 			"format-bluetooth": "{volume}% {icon} {format_source}",
 			"format-bluetooth-muted": "󰸈{icon} {format_source}",
-			"format-muted": "󰸈	{format_source}",
+			"format-muted": "󰸈 {format_source}",
 			"format-source": "{volume}% ",
 			"format-source-muted": "",
 			"format-icons": {

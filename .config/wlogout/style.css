@@ -23,15 +23,15 @@ button {
 }
 
 #lock:hover {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/lock-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/lock-hover.png"));
 }
 
 #lock:focus{
-	background-image: image(url("/home/hacker/.config/wlogout/icons/lock-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/lock-focus.png"));
 }
 
 #logout:focus {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/logout-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/logout-focus.png"));
 }
 
 #logout {
@@ -39,11 +39,11 @@ button {
 }
 
 #logout:hover {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/logout-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/logout-hover.png"));
 }
 
 #logout:focus {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/logout-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/logout-focus.png"));
 }
 
 #suspend {
@@ -51,11 +51,11 @@ button {
 }
 
 #suspend:hover {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/suspend-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/suspend-hover.png"));
 }
 
 #suspend:focus {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/suspend-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/suspend-focus.png"));
 }
 
 #hibernate {
@@ -63,11 +63,11 @@ button {
 }
 
 #hibernate:hover {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/hibernate-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/hibernate-hover.png"));
 }
 
 #hibernate:focus {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/hibernate-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/hibernate-focus.png"));
 }
 
 #shutdown {
@@ -75,11 +75,11 @@ button {
 }
 
 #shutdown:hover {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/shutdown-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/shutdown-hover.png"));
 }
 
 #shutdown:focus {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/shutdown-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/shutdown-focus.png"));
 }
 
 #reboot {
@@ -87,9 +87,9 @@ button {
 }
 
 #reboot:hover {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/reboot-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/reboot-hover.png"));
 }
 
 #reboot:focus {
-	background-image: image(url("/home/hacker/.config/wlogout/icons/reboot-selected.png"));
+	background-image: image(url("/home/hacker/.config/wlogout/icons/reboot-focus.png"));
 }
