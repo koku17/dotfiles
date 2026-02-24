@@ -48,7 +48,7 @@ button:hover {
 }
 
 #workspaces button {
-	padding: 0 5px;
+	padding: 0px;
 	background-color: transparent;
 	color: #ffffff;
 }
@@ -68,7 +68,7 @@ button:hover {
 }
 
 #workspaces button.urgent {
-	background-color: rgba(255,0,0,0.25);
+	background-color: rgba(255,0,0,0.15);
 }
 
 #mode {
@@ -187,6 +187,7 @@ label:focus {
 	background-color: #f1c40f;
 	color: #000000;
 	*/
+	padding-left: 0px;
 }
 
 #pulseaudio.muted {
@@ -222,6 +223,6 @@ label:focus {
 }
 
 #language {
-	margin: 0 5px;
-	min-width: 16px;
+	margin-left: 5px;
+	padding: 0;
 }

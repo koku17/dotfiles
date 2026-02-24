@@ -12,7 +12,6 @@
 	"modules-right": [
 		"idle_inhibitor",
 		"pulseaudio",
-		//"network",
 		"cpu",
 		"memory",
 		"temperature",
@@ -27,18 +26,18 @@
 	],
 	"hyprland/language": {
 		"format": "󰥻 {shortDescription}"
-		//"tooltip": true,
-		//"tooltip-format": "{long}"
 	},
 	"idle_inhibitor": {
-		"format": "{icon} ",
+		"format": "{icon}",
 		"format-icons": {
-			"activated": "",
-			"deactivated": ""
-		}
+			"activated": "󰍷",
+			"deactivated": "󱑚"
+		},
+		"tooltip-format-activated": "Focus",
+		"tooltip-format-deactivated": "Sleep"
 	},
 	"tray": {
-		"spacing": 10
+		"spacing": 3 
 	},
 	"clock": {
 		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
@@ -53,23 +52,25 @@
 		"format": " {}%"
 	},
 	"temperature": {
-		//"hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
-		//"input-filename": "temp1_input",
 		"interval": 5,
 		"critical-threshold": 80,
 		"format": "{icon} {temperatureC}°C",
-		"format-icons": ["", "", "", "", ""]
+		"format-icons": ["", "", "", "", ""],
+		"tooltip": false
 	},
 	"backlight": {
 		"format": "{icon} {percent}%",
-		"format-icons": ["", "󰖨"]
+		"format-icons": ["", "󰖨"],
+		"scroll-step": 5,
+		"tooltip": false
 	},
 	"custom/hyprsunset": {
 		"exec": "sh ~/.scripts/hyprsunset.sh",
 		"on-click": "sh ~/.scripts/hyprsunset.sh -",
 		"on-click-right": "sh ~/.scripts/hyprsunset.sh +",
 		"on-click-middle": "sh ~/.scripts/hyprsunset.sh toggle",
-		"interval": "once"
+		"interval": 5,
+		"tooltip": false
 	},
 	"battery": {
 		"states": {
@@ -88,11 +89,11 @@
 	},
 	"pulseaudio": {
 			"scroll-step": 5,
-			"format": "{volume}% {icon} {format_source}",
-			"format-bluetooth": "{volume}% {icon} {format_source}",
+			"format": "{icon}  {volume}% {format_source}",
+			"format-bluetooth": "{icon} {volume}% {format_source}",
 			"format-bluetooth-muted": "󰸈{icon} {format_source}",
 			"format-muted": "󰸈 {format_source}",
-			"format-source": "{volume}% ",
+			"format-source": " {volume}%",
 			"format-source-muted": "",
 			"format-icons": {
 					"headphone": "",
