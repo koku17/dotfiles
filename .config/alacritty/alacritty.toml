@@ -10,7 +10,7 @@ WINIT_X11_SCALE_FACTOR = "1.25"
 padding = {x = 10, y = 10}
 dynamic_padding = true
 decorations = "Full"
-opacity = 0.75
+opacity = 0.65
 blur = true
 startup_mode = "Windowed"
 title = "Alacritty"
