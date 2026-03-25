@@ -5,7 +5,7 @@ prompt=Select Wallpaper
 layer=overlay
 
 # Layout
-image_size=500x500 # 16:9
+image_size=500x500
 allow_images=true
 insensitive=true
 hide_scroll=true

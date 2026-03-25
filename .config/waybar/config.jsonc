@@ -40,8 +40,8 @@
 		"spacing": 3 
 	},
 	"clock": {
-		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format-alt": "{:%d / %m / %Y}",
+		"tooltip-format": "{:%a, %d %b, %Y}",
+		//"format-alt": "{:%d / %m / %Y}",
 		"format": "{:%I : %M %p}"
 	},
 	"cpu": {
