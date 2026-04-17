@@ -7,7 +7,7 @@ font-style-bold = default
 font-style-bold-italic = default
 font-style-italic = default
 #font-feature =
-font-size = 13.5
+font-size = 12.5
 #font-variation =
 #font-variation-bold =
 #font-variation-italic =
@@ -23,12 +23,12 @@ font-size = 13.5
 #adjust-font-baseline =
 #adjust-underline-position =
 adjust-underline-thickness = 0
-#adjust-strikethrough-position =
+#adjust-strikethrough-position
 #adjust-strikethrough-thickness =
 #adjust-overline-position =
 #adjust-overline-thickness =
 
-adjust-cursor-thickness = 2
+adjust-cursor-thickness = 1
 #adjust-cursor-height =
 #adjust-box-thickness =
 #adjust-icon-height =
@@ -36,7 +36,7 @@ adjust-cursor-thickness = 2
 #grapheme-width-method =
 #freetype-load-flags =
 
-#theme =
+#theme = Neon
 background = #181818
 foreground = #d8d8d8
 #background-image-opacity =
@@ -379,8 +379,8 @@ confirm-close-surface = true
 #quit-after-last-window-closed =
 shell-integration = detect
 shell-integration-features = no-cursor
-custom-shader = ~/.config/ghostty/shaders/cursor_trail.glsl
-custom-shader-animation = always
+#custom-shader = ~/.config/ghostty/shaders/cursor_trail.glsl
+#custom-shader-animation = always
 
 bell-features = audio, no-system
 bell-audio-path = /usr/share/sounds/freedesktop/stereo/bell.oga

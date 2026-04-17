@@ -80,8 +80,8 @@
 		},
 		"events": {
 			"on-charging-100": "notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-full-charged-symbolic.svg 'Battery Ful' 'Battery Fully Charged !'",
-			"on-discharging-warning": "notify-send -u normal -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-040-symbolic.svg 'Battery Powered' 'Soon Batery may be Low !'",
-			"on-discharging-critical": "notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-level-20-symbolic.svg 'Low Battery' 'Please Connect to AC Adaper!'"
+			"on-discharging-critical": "notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-level-20-symbolic.svg 'Low Battery' 'Please Connect to AC Adaper!'",
+			"on-discharging-warning": "notify-send -u normal -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-040-symbolic.svg 'Battery Powered' 'Soon Batery may be Low !'"
 		},
 		"format": "{icon}  {capacity}%",
 		"format-full": "{icon}  {capacity}%",
@@ -89,8 +89,7 @@
 		"format-charging": " {capacity}%",
 		"format-plugged": " {capacity}%",
 		"format-alt": "{time} {icon}",
-		"format-icons": ["", "", "", "", ""],
-		"interval": 10
+		"format-icons": ["", "", "", "", ""]
 	},
 	"pulseaudio": {
 			"scroll-step": 5,
