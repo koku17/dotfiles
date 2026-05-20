@@ -36,6 +36,16 @@
 		"tooltip-format-activated": "Focus",
 		"tooltip-format-deactivated": "Sleep"
 	},
+	"hyprland/workspaces": {
+		"format": "{icon}",
+		"format-icons": {
+			"active": "",
+			"default": ""
+		},
+		"on-scroll-up": "hyprctl dispatch workspace m+1",
+		"on-scroll-down": "hyprctl dispatch workspace m-1",
+		"smooth-scrolling-threshold": 0.5
+	},
 	"tray": {
 		"spacing": 3 
 	},
@@ -74,14 +84,13 @@
 	},
 	"battery": {
 		"states": {
-			"good": 60,
 			"warning": 30,
 			"critical": 20
 		},
 		"events": {
-			"on-charging-100": "notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-full-charged-symbolic.svg 'Battery Ful' 'Battery Fully Charged !'",
-			"on-discharging-critical": "notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-level-20-symbolic.svg 'Low Battery' 'Please Connect to AC Adaper!'",
-			"on-discharging-warning": "notify-send -u normal -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-040-symbolic.svg 'Battery Powered' 'Soon Batery may be Low !'"
+			"on-charging-100": "[ -f /tmp/battery-notify ] && rm -rf /tmp/battery-notify || ( notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-full-charged-symbolic.svg 'Battery Ful' 'Battery Fully Charged !' && touch /tmp/battery-notify )",
+			"on-discharging-critical": "[ -f /tmp/battery-notify ] && rm -rf /tmp/battery-notify || ( notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-level-20-symbolic.svg 'Low Battery' 'Please Connect to AC Adaper!' && touch /tmp/battery-notify )",
+			"on-discharging-warning": "[ -f /tmp/battery-notify ] && rm -rf /tmp/battery-notify || ( notify-send -u normal -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-040-symbolic.svg 'Battery Powered' 'Soon Batery may be Low !' && touch /tmp/battery-notify )"
 		},
 		"format": "{icon}  {capacity}%",
 		"format-full": "{icon}  {capacity}%",
@@ -89,6 +98,7 @@
 		"format-charging": " {capacity}%",
 		"format-plugged": " {capacity}%",
 		"format-alt": "{time} {icon}",
+		"interval": 5,
 		"format-icons": ["", "", "", "", ""]
 	},
 	"pulseaudio": {
@@ -111,8 +121,8 @@
 			"on-click": "pavucontrol",
 			"on-click-right": "pamixer --toggle-mute ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
 			"on-click-middle": "pamixer -t --source alsa_input.pci-0000_05_00.6.HiFi__Mic1__source",
-	"on-scroll-up":"pamixer -i 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
-	"on-scroll-down":"pamixer -d 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
+	"on-scroll-up": "pamixer -i 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
+	"on-scroll-down": "pamixer -d 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
 	},
 	"custom/clockindicator": {
 		"exec": "~/.scripts/clock-icons.sh o",
