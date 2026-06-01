@@ -4,7 +4,6 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 require ("autostart")
-require("plugin")
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
@@ -66,3 +65,10 @@ require ("windowrule")
 --- MISC ---
 ------------
 require ("misc")
+
+--------------
+--- PLUGIN ---
+--------------
+hl.timer(function()
+	dofile(os.getenv("HOME").."/.config/hypr/plugin.lua")
+end,{ timeout = 500, type = "oneshot" })

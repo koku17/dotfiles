@@ -42,17 +42,18 @@
 			"active": "",
 			"default": ""
 		},
-		"on-scroll-up": "hyprctl dispatch workspace m+1",
-		"on-scroll-down": "hyprctl dispatch workspace m-1",
+		"on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace = \"m+1\"})'",
+		"on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace = \"m-1\"})'",
 		"smooth-scrolling-threshold": 0.5
 	},
 	"tray": {
 		"spacing": 3 
 	},
+		"on-scroll-down": "hyprctl dispatch workspace m-1",
 	"clock": {
 		"tooltip-format": "{:%a, %d %b, %Y}",
-		//"format-alt": "{:%d / %m / %Y}",
 		"format": "{:%I : %M %p}"
+		//"format-alt": "{:%d / %m / %Y}",
 	},
 	"cpu": {
 		"format": " {usage}%",

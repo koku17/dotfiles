@@ -1,8 +1,6 @@
 * {
-	/* `otf-font-awesome` is required to be installed for icons */
 	font-family: NotoSans Nerd Font, Roboto, Helvetica, Arial, sans-serif;
 	font-size: 12px;
-	/*border-radius: 10px 10px 10px 10px;*/
 }
 
 tooltip {
@@ -11,7 +9,7 @@ tooltip {
 
 window#waybar {
 	background-color: rgba(150, 150, 150, 0.35);
-	border-bottom: none; /*3px solid rgba(0, 0, 0, 0.5);*/
+	border-bottom: none;
 	border-radius: 0px 0px 10px 10px;
 	color: #ffffff;
 	transition-property: background-color;
@@ -23,7 +21,6 @@ window#waybar.hidden {
 }
 
 #pulseaudio:hover {
-	/*background-color: #a37800;*/
 	background-color: transparent;
 	font-family: "NotoSans Nerd Font";
 }
@@ -43,7 +40,6 @@ window#waybar.hidden {
 #workspaces button.active ~ button.empty {
 	color: transparent;
 }
-
 
 #workspaces button.urgent {
 	color: rgba(255,0,0,0.5);
@@ -95,12 +91,10 @@ window#waybar.hidden {
 	margin: 0 4px;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
 	margin-left: 0;
 }
 
-/* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
 	margin-right: 0;
 }
@@ -121,7 +115,6 @@ window#waybar.hidden {
 	}
 }
 
-/* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
 	background-color: transparent;
 	color: rgb(255,0,0);
@@ -136,50 +129,23 @@ label:focus {
 	background-color: #000000;
 }
 
-#cpu {
-	/*
-	background-color: #2ecc71;
-	color: #000000;
-	*/
-}
-
-#memory {
-	/*background-color: rgba(155, 89, 182,.8);*/
-}
-
-#backlight {
-	/*background-color: rgba(144, 177, 177,0.5);*/
-}
-
+#cpu,
+#memory,
+#backlight,
 #network {
-	/*background-color: #2980b9;*/
 }
 
 #network.disconnected {
 	color: rgba(255, 0, 0, 1);
-	/*background-color: #f53c3c;*/
 }
 
 #pulseaudio {
-	/*
-	background-color: #f1c40f;
-	color: #000000;
-	*/
 	padding-left: 0px;
 }
 
-#pulseaudio.muted {
-	/*background-color: #90b1b1;
-	color: #2a5c45;
-	*/
-}
-
-#temperature {
-	/*background-color: #f0932b;*/
-}
-
+#pulseaudio.muted,
+#temperature,
 #temperature.critical {
-	/*background-color: #eb4d4b;*/
 }
 
 #tray {

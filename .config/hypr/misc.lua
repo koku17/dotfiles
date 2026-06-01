@@ -25,6 +25,9 @@ hl.config({
 		sync_gsettings_theme = true,
 		no_hardware_cursors = true
 	},
+	xwayland = {
+		force_zero_scaling = true
+	},
 	debug = {
 		damage_blink = false,
 		vfr = false,

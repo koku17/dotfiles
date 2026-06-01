@@ -28,8 +28,8 @@ hl.config({
 
         shadow = {
             enabled      = false,
-            range        = 4,
-            render_power = 3,
+            range        = 0,
+            render_power = 0,
             color        = 0x000000ff,
         },
 
@@ -38,6 +38,8 @@ hl.config({
             size      = 3,
             passes    = 2,
 						popups = true,
+						popups_ignorealpha = 0.8,
+						ignore_opacity = false,
 						special = true,
 						new_optimizations = true,
             vibrancy  = 0.15,

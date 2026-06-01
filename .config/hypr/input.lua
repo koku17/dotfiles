@@ -23,13 +23,21 @@ hl.gesture({
 	fingers = 3,
 	direction = "horizontal",
 	action = "workspace",
-	-- workspace_swipe_distance = 400,
-	-- workspace_swipe_min_speed_to_force = 30,
-	-- workspace_swipe_create_new = true,
-	-- workspace_swipe_cancel_ratio = 0.5,
-	-- workspace_swipe_forever = true,
+	workspace_swipe_distance = 400,
+	workspace_swipe_min_speed_to_force = 30,
+	workspace_swipe_create_new = true,
+	workspace_swipe_cancel_ratio = 0.25,
+	workspace_swipe_forever = true
 })
 
+hl.gesture({
+	fingers = 2,
+	direction = "pinch",
+	action = "cursorZoom",
+	zoom_level = 1,
+	mods = "CTRL",
+	mode = "live"
+})
 
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
