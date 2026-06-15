@@ -10,7 +10,7 @@ end)
 function set_viewer_awww_wallpaper()
 	local img = swayimg.viewer.get_image()
 	if img then
-		os.execute('awww img -a -t grow "' .. img.path .. '" --transition-pos ' .. positions[math.random(#positions)] .. ' --transition-step 90 --transition-duration 1')
+		os.execute('awww img -a -t grow "' .. img.path .. '" --transition-pos ' .. positions[math.random(#positions)] .. ' --transition-step 90 --transition-duration .75')
 		os.execute('ln -sf "' .. img.path .. '" /tmp/wallpaper')
 	end
 end
@@ -66,7 +66,7 @@ positions = {
 function set_gallery_awww_wallpaper()
 	local img = swayimg.gallery.get_image()
 	if img then
-		os.execute('awww img -a -t grow "' .. img.path .. '" --transition-pos ' .. positions[math.random(#positions)] .. ' --transition-step 90 --transition-duration 1')
+		os.execute('awww img -a -t grow "' .. img.path .. '" --transition-pos ' .. positions[math.random(#positions)] .. ' --transition-step 90 --transition-duration .75')
 		os.execute('ln -sf "' .. img.path .. '" /tmp/wallpaper')
 		swayimg.set_mode("viewer")
 	end

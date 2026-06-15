@@ -1,25 +1,24 @@
-local mainMod      = "SUPER"
-local terminal     = "alacritty"
-local terminal2    = "ghostty"
-local fileManager  = "nemo"
-local menu         = "pkill wofi || wofi"
-local browser      = "chromium"
-local waybar_reset = "pkill ^waybar ; waybar &"
-local mpvpaper     = 'pkill -9 "^mpvpaper" ; python ~/.scripts/wallpicker.py video'
-local wallpaper    =  'pkill -9 "^mpvpaper" || (pkill -f -9 "^swayimg -v --viewer" || swayimg -v --viewer --class=wallpaper_picker -c ~/.config/swayimg/wallpaper.lua ~/.local/share/wallpapers/Custom/*)'
-local recorder     = 'wf-recorder --audio="$(pactl get-default-sink).monitor" -r 30 -c hevc_nvenc -p rc=constqp -p qp=20 -p preset=p5 -f "$HOME/Videos/Screen Reocrd/$(date +Record_%d-%m-%Y_%I-%M.mkv)"'
-local kill_recorder = "pkill ^wf-recorder"
-local notification = "sleep .1 ; swaync-client -t"
-local clipboard    = "pkill ^wofi || cliphist -db-path /tmp/cliphist_db list | wofi -S dmenu -r \"echo '%s' | sed 's/^.*\t//' | head -c 50 | tr '\n' ' '\""
-local emoji        = 'pkill ^wofi || cat ~/.config/wofi/emojis | wofi -S dmenu -c ~/.config/wofi/emoji'
-local run_cmd      = "WOFI_RUN=$(wofi --dmenu) ; [ -n \"$WOFI_RUN\" ] && alacritty -e bash --rcfile ~/.aliases -ic \"$WOFI_RUN ; echo ; read -n 1 -p 'Press any key to Exit ...' wait\""
-local lock         = "pidof hyprlock || hyprlock"
-local copy_pipe    = " | cliphist -db-path /tmp/cliphist_db decode | wl-copy"
-local delete_pipe  = " | cliphist -db-path /tmp/cliphist_db delete"
-local pterm_vars   = "HOME=/tmp HISTFILE=/dev/null PS1='\\e[32;01m\\W\\e[0m $ ' "
-local pterm_opts   = " -T 'Private Terminal' --config-file ~/.config/alacritty/alacritty.toml --working-directory /tmp -e bash --rcfile ~/.aliases"
-local private_term = pterm_vars .. terminal .. pterm_opts
-local qr_scanner   = 'ZBARURL="$(zbarimg --raw <(hyprshot -m region -raw) 2> /dev/null)"; [ -n $ZBARURL ] && dunstify -A $ZBARURL,"Copy URL" "QR code detected !" "$ZBARURL" | wl-copy'
+local mainMod        = "SUPER"
+local terminal       = "alacritty"
+local terminal2      = "ghostty"
+local fileManager    = "nemo"
+local menu           = "pkill wofi || wofi"
+local browser        = "chromium"
+local waybar_reset   = "pkill ^waybar ; waybar &"
+local wallpaper      = 'pkill -9 "^mpvpaper" || (pkill -f -9 "^swayimg -v --viewer" || swayimg -v --viewer --class=wallpaper_picker -c ~/.config/swayimg/wallpaper.lua ~/.local/share/wallpapers/Image/*)'
+local recorder       = 'wf-recorder --audio="$(pactl get-default-sink).monitor" -r 30 -c hevc_nvenc -p rc=constqp -p qp=20 -p preset=p5 -f "$HOME/Videos/Screen Reocrd/$(date +Record_%d-%m-%Y_%I-%M.mkv)"'
+local kill_recorder  = "pkill ^wf-recorder"
+local notification   = "sleep .1 ; swaync-client -t"
+local clipboard      = "pkill ^wofi || cliphist -db-path /tmp/cliphist_db list | wofi -S dmenu -r \"echo '%s' | sed 's/^.*\t//' | head -c 50 | tr '\n' ' '\""
+local emoji          = 'pkill ^wofi || cat ~/.config/wofi/emojis | wofi -S dmenu -c ~/.config/wofi/emoji'
+local run_cmd        = "WOFI_RUN=$(wofi --dmenu) ; [ -n \"$WOFI_RUN\" ] && alacritty -e bash --rcfile ~/.aliases -ic \"$WOFI_RUN ; echo ; read -n 1 -p 'Press any key to Exit ...' wait\""
+local lock           = "pidof hyprlock || hyprlock"
+local copy_pipe      = " | cliphist -db-path /tmp/cliphist_db decode | wl-copy"
+local delete_pipe    = " | cliphist -db-path /tmp/cliphist_db delete"
+local pterm_vars     = "HOME=/tmp HISTFILE=/dev/null PS1='\\e[32;01m\\W\\e[0m $ ' "
+local pterm_opts     = " -T 'Private Terminal' --config-file ~/.config/alacritty/alacritty.toml --working-directory /tmp -e bash --rcfile ~/.aliases"
+local private_term   = pterm_vars .. terminal .. pterm_opts
+local qr_scanner     = 'ZBARURL="$(zbarimg --raw <(hyprshot -m region -raw) 2> /dev/null)"; [ -n $ZBARURL ] && dunstify -A $ZBARURL,"Copy URL" "QR code detected !" "$ZBARURL" | wl-copy'
 
 -- keycodes
 local comma = "code:59"
@@ -28,12 +27,12 @@ local minus = "code:20"
 local equal = "code:21"
 
 -- window binds
-hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { locked = true, repeating = true })
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.kill(), { locked = true, repeating = true })
+hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { repeating = true })
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.kill(), { repeating = true })
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = 1 }))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(waybar_reset))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_raw(lock))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd(lock))
 hl.bind(mainMod .. " + CTRL + X", hl.dsp.exec_raw("hyprctl dispatch 'hl.dsp.exit()'"))
 
 -- Apps
@@ -57,7 +56,15 @@ hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd("pkill ^wlogout || timeout 10 wlo
 hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("GTK_THEME= missioncenter"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_raw(fileManager))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(wallpaper))
-hl.bind(mainMod .. " + SHIFT + I", hl.dsp.exec_cmd(mpvpaper))
+hl.bind(mainMod .. " + C", hl.dsp.exec_raw("hyprpicker -a"))
+
+local index = 1
+hl.bind(mainMod .. " + SHIFT + I",function()
+	index = (index + 1) % 6
+	if index == 0 then index = 1 end
+	local live_wallpaper = io.popen('mlocate ~/.local/share/wallpapers/Video 2>/dev/null | grep -E "\\.mp4|\\.mkv|\\.gif|\\.webm|\\.mpeg|\\.mov" | sed "' .. index .. 'q;d"'):read("*l")
+	hl.dispatch(hl.dsp.exec_cmd('pkill -9 "^mpvpaper" ; mpvpaper -f "*" -o "--loop-playlist=inf" -s -p ' .. live_wallpaper))
+end)
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))
@@ -74,7 +81,7 @@ hl.bind(mainMod .. " + " .. dot, hl.dsp.exec_cmd(emoji .. "| cut -d \" \" -f 1 |
 -- Lock screen
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock --immediate-render"))
 
--- Move focus with mainMod + arrow keys
+-- Move focus with mainMod + vim keys
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left"  }))
 hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up"    }))
@@ -86,9 +93,16 @@ hl.bind("SHIFT + PRINT", hl.dsp.exec_raw("hyprshot -s -m region --clipboard-only
 hl.bind("CTRL + PRINT", hl.dsp.exec_raw("hyprshot -s -m window --clipboard-only"))
 hl.bind("CTRL + SHIFT + PRINT", hl.dsp.exec_raw("hyprshot -z -s -m region --clipboard-only"))
 hl.bind("ALT + PRINT", hl.dsp.exec_cmd(qr_scanner))
-hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd(recorder))
+hl.bind(mainMod .. " + PRINT",function()
+	local monitor_name = hl.get_active_monitor().name
+	hl.dispatch(hl.dsp.exec_cmd(recorder.." -o "..monitor_name))
+end)
 hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(kill_recorder))
 
+-- plugin reload
+hl.bind(mainMod .. " + CTRL + P", function()
+	hl.dispatch(hl.dsp.exec_cmd("hyprctl reload ; hyprctl eval \"dofile ('$HOME/.config/hypr/plugin.lua')\" ; " .. waybar_reset))
+end)
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 9 do
@@ -116,10 +130,10 @@ hl.bind(mainMod .. " + CTRL + mouse_down", hl.dsp.window.move({ workspace = "r-1
 hl.bind(mainMod .. " + CTRL + mouse_up",   hl.dsp.window.move({ workspace = "r+1" }), { mouse = true})
 hl.bind(mainMod .. " + CTRL + SHIFT + mouse_down", hl.dsp.window.move({ workspace = "e-1" }), { mouse = true})
 hl.bind(mainMod .. " + CTRL + SHIFT + mouse_up",   hl.dsp.window.move({ workspace = "e+1" }), { mouse = true})
-hl.bind(mainMod .. " + SHIFT + " .. equal, hl.dsp.focus({ workspace = "r+1" }), {locked = true, repeating = true})
-hl.bind(mainMod .. " + SHIFT + " .. minus, hl.dsp.focus({ workspace = "r-1" }), {locked = true, repeating = true})
-hl.bind(mainMod .. " + " .. equal, hl.dsp.focus({ workspace = "m+1" }), {locked = true, repeating = true})
-hl.bind(mainMod .. " + " .. minus, hl.dsp.focus({ workspace = "m-1" }), {locked = true, repeating = true})
+hl.bind(mainMod .. " + SHIFT + " .. equal, hl.dsp.focus({ workspace = "r+1" }), {repeating = true})
+hl.bind(mainMod .. " + SHIFT + " .. minus, hl.dsp.focus({ workspace = "r-1" }), {repeating = true})
+hl.bind(mainMod .. " + " .. equal, hl.dsp.focus({ workspace = "m+1" }), {repeating = true})
+hl.bind(mainMod .. " + " .. minus, hl.dsp.focus({ workspace = "m-1" }), {repeating = true})
 hl.bind(mainMod .. " + CTRL + " .. equal, hl.dsp.window.move({ workspace = "r+1" }), {repeating = true})
 hl.bind(mainMod .. " + CTRL + " .. minus, hl.dsp.window.move({ workspace = "r-1" }), {repeating = true})
 hl.bind(mainMod .. " + CTRL + SHIFT + " .. equal, hl.dsp.window.move({ workspace = "m+1" }), {repeating = true})
@@ -158,14 +172,14 @@ hl.bind("XF86AudioLowerVolume", hl.dsp.exec_raw("pamixer -d 5 ; " .. audio_chang
 hl.bind("XF86AudioMute",        hl.dsp.exec_raw("pamixer --toggle-mute ; " .. audio_change), { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_raw("brightnessctl set 5%+"),                    { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown",hl.dsp.exec_raw("brightnessctl set 5%-"),                    { locked = true, repeating = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"),                                  { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl --all-players play-pause"),              { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"),                              { locked = true })
-hl.bind("XF86Calculator", hl.dsp.exec_raw("pidof qalculate-gtk || qalculate-gtk"),           { locked = true })
-hl.bind("XF86Launch2", hl.dsp.exec_raw("lutris"),                                            { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"),                                  { locked = true, repeating = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl --all-players play-pause"))
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"),                              { locked = true, repeating = true })
+hl.bind("XF86Calculator", hl.dsp.exec_raw("pidof qalculate-gtk || qalculate-gtk"))
+hl.bind("XF86Launch2", hl.dsp.exec_raw("lutris"))
 
 -- Laptop Lid
-hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("(hyprctl dispatch 'hl.dsp.dpms({action = \"disabled\"})' ; pidof hyprlock || hyprlock)"))
+hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
 --hl.bind("switch:on:Lid Switch",function()
 --	hl.timer(function()
 --			hl.dispatch(hl.dsp.dpms({action = "enabled"}))

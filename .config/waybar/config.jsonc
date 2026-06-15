@@ -119,14 +119,15 @@
 					"car": "",
 					"default": ["", "", ""]
 			},
-			"on-click": "pavucontrol",
+			"on-click": "GTK_THEME= pavucontrol",
 			"on-click-right": "pamixer --toggle-mute ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
 			"on-click-middle": "pamixer -t --source alsa_input.pci-0000_05_00.6.HiFi__Mic1__source",
 	"on-scroll-up": "pamixer -i 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga",
 	"on-scroll-down": "pamixer -d 5 ; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
 	},
 	"custom/clockindicator": {
-		"exec": "~/.scripts/clock-icons.sh o",
+		//"exec": "echo -ne \"\\U$(printf '%x' \"$(( 988222 + $(date +%I | sed 's/^0//g') ))\")\"",
+		"exec": "echo -ne \"\\U$(printf '%x' \"$(( 988234 + $(date +%I | sed 's/^0//g') ))\")\"",
 		"interval": 60,
 		"tooltip": false
 	},

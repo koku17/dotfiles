@@ -1,4 +1,3 @@
-hl.timer(function()
 hl.config ({
 	plugin = {
 		hyprbars = {
@@ -10,6 +9,8 @@ hl.config ({
 			on_double_click = "hyprctl dispatch 'hl.dsp.window.fullscreen({ mode = 1 })'",
 			bar_buttons_alignment = "left",
 			bar_text_size = 14,
+			bar_text_weight = 450,
+			bar_text_font = "NotoSans NF",
 			bar_precedence_over_border = false,
 			bar_part_of_window = false,
 		},
@@ -39,4 +40,3 @@ hl.plugin.hyprbars.add_button({
 		icon = " ",
 		action = ""
 })
-end, {timeout = 500, type = "oneshot"})

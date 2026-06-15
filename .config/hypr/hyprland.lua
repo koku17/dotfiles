@@ -3,6 +3,7 @@
 -------------------
 
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
+local locked = true
 require ("autostart")
 
 -------------------------------
@@ -65,10 +66,3 @@ require ("windowrule")
 --- MISC ---
 ------------
 require ("misc")
-
---------------
---- PLUGIN ---
---------------
-hl.timer(function()
-	dofile(os.getenv("HOME").."/.config/hypr/plugin.lua")
-end,{ timeout = 500, type = "oneshot" })

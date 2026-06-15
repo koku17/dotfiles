@@ -5,8 +5,8 @@
 --  See https://wiki.hyprland.org/Configuring/Monitors/
 hl.monitor({ output = "eDP-1", mode = "1920x1080@60.00Hz", position = "auto", scale = 1.25})
 hl.monitor({ output = "DP-1", mode = "1920x1080@60.00Hz", position = "auto", scale = 1})
-hl.monitor({ output = "HDMI-A-1", mode = "highres", position = "auto-left", scale = 1})
-hl.monitor({ output = "desc:Acer Technologies XB253Q TH5SI001852L", mode = "1920x1080@239.76Hz", position = "auto-right", scale = 1})
+--hl.monitor({ output = "HDMI-A-1", mode = "highres", position = "auto-left", scale = 1})
+hl.monitor({ output = "desc:Acer Technologies XB253Q TH5SI001852L", mode = "1920x1080@240Hz", position = "auto-right", scale = 1, vrr = 0})
 hl.monitor({ output = "desc:Acer Technologies RS272 G0 152200B0C4202", mode = "highres", position = "auto-right", scale = 1})
 hl.monitor({ output = "desc:IFP IFP Display", mode = "highres", position = "auto-right", scale = 2})
 -- monitor({ output = "desc:IFP IFP Display", mode = "preferred", position = "auto", scale = 1, mirror = "eDP-1"})

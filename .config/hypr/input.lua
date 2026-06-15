@@ -7,9 +7,9 @@ hl.config({
 		kb_rules = "",
 		follow_mouse = 1,
 		sensitivity = 1.0,
-		accel_profile = "adaptive",
+		accel_profile = "flat",
 		repeat_rate = 40,
-		repeat_delay = 500,
+		repeat_delay = 300,
 		numlock_by_default = true,
 
 		touchpad = {
@@ -28,6 +28,18 @@ hl.gesture({
 	workspace_swipe_create_new = true,
 	workspace_swipe_cancel_ratio = 0.25,
 	workspace_swipe_forever = true
+})
+
+hl.gesture({
+	fingers = 3,
+	direction = "vertical",
+	action = function()
+		hl.dispatch(hl.dsp.workspace.toggle_special("magic"))
+	end,
+	workspace_swipe_distance = 400,
+	workspace_swipe_min_speed_to_force = 30,
+	workspace_swipe_create_new = true,
+	workspace_swipe_cancel_ratio = 0.25
 })
 
 hl.gesture({
