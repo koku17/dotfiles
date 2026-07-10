@@ -1,4 +1,7 @@
 hl.config({
+	binds = {
+		disable_keybind_grabbing = true
+	},
 	misc = {
 		enable_swallow = true,
 		disable_hyprland_logo = true,
@@ -18,19 +21,21 @@ hl.config({
 	},
 	opengl = { nvidia_anti_flicker = false },
 	 render = {
-	 	new_render_scheduling = true,
+	 	new_render_scheduling = false,
 		expand_undersized_textures = true,
 	 },
 	cursor = {
 		sync_gsettings_theme = true,
 		no_hardware_cursors = true,
-		no_break_fs_vrr = 0
+		--no_break_fs_vrr = 0
 	},
 	xwayland = {
 		force_zero_scaling = true
 	},
 	debug = {
+		overlay = false,
 		damage_blink = false,
-		vfr = false
+		vfr = false,
+		damage_tracking = 2
 	}
 })

@@ -3,7 +3,6 @@
 -------------------
 
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-local locked = true
 require ("autostart")
 
 -------------------------------
@@ -18,8 +17,7 @@ require ("env")
 -----------------------
 
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Permissions/
--- Please note permission changes here require a Hyprland restart and are not applied on-the-fly
--- for security reasons
+require ("permission")
 
 -- hl.config({
 --   ecosystem = {
@@ -36,6 +34,7 @@ require ("env")
 -----------------------
 require("monitors")
 
+-----------------------
 ---- LOOK AND FEEL ----
 -----------------------
 

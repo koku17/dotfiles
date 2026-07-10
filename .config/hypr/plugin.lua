@@ -12,7 +12,7 @@ hl.config ({
 			bar_text_weight = 450,
 			bar_text_font = "NotoSans NF",
 			bar_precedence_over_border = false,
-			bar_part_of_window = false,
+			bar_part_of_window = true,
 		},
 	},
 })
@@ -39,4 +39,11 @@ hl.plugin.hyprbars.add_button({
 		size = 23,
 		icon = " ",
 		action = ""
+})
+
+hl.window_rule ({
+	match = {
+		class = "rlr",
+	},
+	['hyprbars:no_bar'] = true
 })

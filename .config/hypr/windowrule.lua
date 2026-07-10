@@ -27,7 +27,7 @@ hl.window_rule({
 
 -- opaque apps
 hl.window_rule({
-	match = { class = "mpv|swayimg|ffplay|virt-manager|chromium" },
+	match = { class = "mpv|swayimg|ffplay|virt-manager|chromium|scrcpy" },
 	opaque = true
 })
 
@@ -61,7 +61,7 @@ hl.window_rule ({
 hl.window_rule ({
 	match = { class = "mpv|swayimg" },
 	size = { "0.75*monitor_h*window_w/window_h", "monitor_h*0.75"},
-	move = { "cursor_x*(1-0.75*(window_w/window_h)*(monitor_h/monitor_w))", "(1-0.75)*cursor_y+(25*(1-cursor_y/monitor_h))"}
+	move = { "cursor_x*(1-0.75*(window_w/window_h)*(monitor_h/monitor_w))", "0.25*cursor_y+(25*(1-cursor_y/monitor_h))"}
 })
 
 -- custom window size
@@ -82,11 +82,6 @@ hl.layer_rule({
 hl.layer_rule({
 	match = { namespace = "nwg-dock|wofi|swaync-control-center" },
 	ignore_alpha = 0
-})
-
-hl.layer_rule({
-	match = { namespace = "swaync-control-center" },
-	blur = true
 })
 
 hl.layer_rule({
@@ -113,14 +108,6 @@ hl.window_rule({
 	no_focus = true,
 })
 
--- wallpaper picker
-hl.window_rule({
-	match = {
-		class = "wallpaper_picker"
-	},
-	size = { "monitor_w*0.65", "monitor_h*0.65"}
-})
-
 -- individual rules
 hl.window_rule({
 	match = {
@@ -137,16 +124,6 @@ hl.window_rule({
 	opacity = 0.8
 })
 
-hl.window_rule({
-	match = {
-		class = "chromium",
-  	title = "Chromium",
-  	initial_class = "chromium",
-  	initial_title = "Chromium"
-	},
-	center = true
-})
-
 hl.window_rule ({
 	match = {
 		class = "chromium",
@@ -155,3 +132,30 @@ hl.window_rule ({
 	},
 	float = true
 })
+
+hl.window_rule({
+	match = {
+		class = "wallpaper_picker"
+	},
+	size = { "monitor_w*0.65", "monitor_h*0.65"}
+})
+
+-- dynamic rules
+hl.on ("window.active",function()
+	local w = hl.get_active_window()
+	if w ~=nil and w.floating == true and w.floating ~= nil then
+		hl.dispatch(hl.dsp.window.alter_zorder({mode = "top"}))
+	end
+end)
+
+hl.on ("window.open",function()
+	local w = hl.get_active_window()
+	local m = hl.get_active_monitor()
+	if w ~= nil and m ~= nil then
+		if w.size ~= nil and m.size ~= nil and w.floating == true then
+			if w.size.x > 0.5 * m.size.width or w.size.y > 0.5 * m.size.height then
+				hl.dispatch(hl.dsp.window.center())
+			end
+		end
+	end
+end)

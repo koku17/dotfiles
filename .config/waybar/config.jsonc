@@ -1,13 +1,13 @@
 // -*- mode: jsonc -*-
 {
-	"height": 18,
+	"height": 26,
 	"spacing": 4,
 	"justify": "center",
 	"modules-left": [
 		"hyprland/workspaces"
 	],
 	"modules-center": [
-		"custom/shree"
+		"custom/center-text"
 	],
 	"modules-right": [
 		"idle_inhibitor",
@@ -89,9 +89,9 @@
 			"critical": 20
 		},
 		"events": {
-			"on-charging-100": "[ -f /tmp/battery-notify ] && rm -rf /tmp/battery-notify || ( notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-full-charged-symbolic.svg 'Battery Ful' 'Battery Fully Charged !' && touch /tmp/battery-notify )",
-			"on-discharging-critical": "[ -f /tmp/battery-notify ] && rm -rf /tmp/battery-notify || ( notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-level-20-symbolic.svg 'Low Battery' 'Please Connect to AC Adaper!' && touch /tmp/battery-notify )",
-			"on-discharging-warning": "[ -f /tmp/battery-notify ] && rm -rf /tmp/battery-notify || ( notify-send -u normal -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-040-symbolic.svg 'Battery Powered' 'Soon Batery may be Low !' && touch /tmp/battery-notify )"
+			"on-charging-100": "notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-full-charged-symbolic.svg 'Battery Ful' 'Battery Fully Charged !'",
+			"on-discharging-critical": "notify-send -u critical -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-level-20-symbolic.svg 'Low Battery' 'Please Connect to AC Adaper!'",
+			"on-discharging-warning": "notify-send -u normal -i ~/.local/share/icons/WhiteSur-dark/status/symbolic/battery-040-symbolic.svg 'Battery Powered' 'Soon Batery may be Low !'"
 		},
 		"format": "{icon}  {capacity}%",
 		"format-full": "{icon}  {capacity}%",
@@ -137,8 +137,8 @@
 		"on-click": "swaync-client -t",
 		"tooltip-format": "Notifications"
 	},
-	"custom/shree": {
-		"format": "॥श्री॥",
+	"custom/center-text": {
+		"format": "躺平",
 		"interval": "once"
 	}
 }
