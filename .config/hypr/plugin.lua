@@ -12,7 +12,7 @@ hl.config ({
 			bar_text_weight = 450,
 			bar_text_font = "NotoSans NF",
 			bar_precedence_over_border = false,
-			bar_part_of_window = true,
+			bar_part_of_window = false,
 		},
 	},
 })

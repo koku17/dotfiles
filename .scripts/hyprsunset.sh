@@ -1,32 +1,39 @@
-#! /bin/bash
+#! /bin/bashl
 
-TEMPERATURE=$(hyprctl hyprsunset temperature)
+get_temp () {
+	hyprctl hyprsunset temperature
+}
+
+set_temp () {
+	hyprctl hyprsunset temperature $1
+}
 
 if [[ $1 = "toggle" ]]; then
-	if [ $TEMPERATURE = "6000" ]; then
-		hyprctl hyprsunset temperature 4500 1>&2> /dev/null
+	if [ $(get_temp) -gt 4500 ]; then
+		set_temp 4500 1>&2> /dev/null
 	else
-		hyprctl hyprsunset temperature 6000 1>&2> /dev/null
+		set_temp 6000 1>&2> /dev/null
 	fi
 fi
 
 if [[ $1 = "+" ]]; then
-	UP=$(( TEMPERATURE + 500 ))
-	if [[ $UP -le 10000 ]]; then
-		hyprctl hyprsunset temperature $UP 1>&2> /dev/null
+	TEMPERATURE=$(( $(get_temp) + 500 ))
+	if [[ $TEMPERATURE -le 10000 ]]; then
+		set_temp $TEMPERATURE 1>&2> /dev/null
 	else
-		hyprctl hyprsunset temperature 10000 1>&2> /dev/null
+		set_temp 10000 1>&2> /dev/null
 	fi
 elif [[ $1 = "-" ]]; then
-	DOWN=$(( TEMPERATURE - 500 ))
-	if [[ $DOWN -ge 1000 ]]; then
-		hyprctl hyprsunset temperature $DOWN 1>&2> /dev/null
+	TEMPERATURE=$(( $(get_temp) - 500 ))
+	if [[ $TEMPERATURE -ge 1000 ]]; then
+		set_temp $TEMPERATURE 1>&2> /dev/null
 	else
-		hyprctl hyprsunset temperature 1000 1>&2> /dev/null
+		set_temp 1000 1>&2> /dev/null
 	fi
 fi
 
-STATUS=$(( $TEMPERATURE / 1000 ))
+TEMPERATURE=$(get_temp)
+STATUS=$(( TEMPERATURE / 1000 ))
 case $STATUS in
 	1)
 		printf "󰛨"
@@ -59,4 +66,4 @@ case $STATUS in
 		printf "󱩎"
 esac
 
-printf "  $(qalc -t "$TEMPERATURE / 1000")k"
+printf "  $(qalc -t "$(get_temp) / 1000")k"

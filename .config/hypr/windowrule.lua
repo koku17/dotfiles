@@ -9,9 +9,9 @@ hl.window_rule({
 
 -- Supress maximize request
 hl.window_rule({
-    name  = "suppress-maximize-events",
-    match = { class = ".*" },
-    suppress_event = "maximize",
+		name	= "suppress-maximize-events",
+		match = { class = ".*" },
+		suppress_event = "maximize",
 })
 
 -- tiled applications
@@ -96,14 +96,14 @@ hl.layer_rule({
 
 -- Xwayland fixes
 hl.window_rule({
-	name  = "fix-xwayland-drags",
+	name	= "fix-xwayland-drags",
 	match = {
-		class      = "^$",
-		title      = "^$",
-		xwayland   = true,
-		float      = true,
+		class			= "^$",
+		title			= "^$",
+		xwayland	 = true,
+		float			= true,
 		fullscreen = false,
-		pin        = false,
+		pin				= false,
 	},
 	no_focus = true,
 })
@@ -127,8 +127,8 @@ hl.window_rule({
 hl.window_rule ({
 	match = {
 		class = "chromium",
-  	initial_class = "chromium",
-  	initial_title = "about:blank - Chromium",
+		initial_class = "chromium",
+		initial_title = "about:blank - Chromium",
 	},
 	float = true
 })
@@ -141,21 +141,11 @@ hl.window_rule({
 })
 
 -- dynamic rules
-hl.on ("window.active",function()
+hl.on ("window.active", function()
 	local w = hl.get_active_window()
-	if w ~=nil and w.floating == true and w.floating ~= nil then
+	if not w or not w.floating then
+		return
+	else
 		hl.dispatch(hl.dsp.window.alter_zorder({mode = "top"}))
-	end
-end)
-
-hl.on ("window.open",function()
-	local w = hl.get_active_window()
-	local m = hl.get_active_monitor()
-	if w ~= nil and m ~= nil then
-		if w.size ~= nil and m.size ~= nil and w.floating == true then
-			if w.size.x > 0.5 * m.size.width or w.size.y > 0.5 * m.size.height then
-				hl.dispatch(hl.dsp.window.center())
-			end
-		end
 	end
 end)

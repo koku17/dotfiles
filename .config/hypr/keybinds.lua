@@ -1,11 +1,11 @@
 local mainMod        = "SUPER"
 local terminal       = "alacritty"
-local terminal2      = "ghostty"
+local terminal2      = "GTK_THEME= ghostty"
 local fileManager    = "nemo"
-local menu           = "pkill wofi || wofi"
+local menu           = "pkill wofi || GTK_THEME= wofi"
 local browser        = "chromium"
 local waybar_reset   = "pkill ^waybar ; waybar &"
-local wallpaper      = 'pkill -9 "^mpvpaper" || (pkill -f -9 "^swayimg -v --viewer" || swayimg -v --viewer -c ~/.config/swayimg/wallpaper.lua ~/.local/share/wallpapers/Image/*)'
+local wallpaper_pick = 'pkill -9 "^mpvpaper" || (pkill -f -9 "^swayimg -v --viewer" || swayimg -v --viewer -c ~/.config/swayimg/wallpaper.lua ~/.local/share/wallpapers/Image/*)'
 local recorder       = 'wf-recorder --audio="$(pactl get-default-sink).monitor" -r 30 -c hevc_nvenc -p rc=constqp -p qp=20 -p preset=p5 -f "$HOME/Videos/Screen Reocrd/$(date +Record_%d-%m-%Y_%I-%M.mkv)"'
 local kill_recorder  = "pkill ^wf-recorder"
 local notification   = "swaync-client -t -sw"
@@ -16,8 +16,8 @@ local lock           = "pidof hyprlock || __GLX_VENDOR_LIBRARY_NAME=mesa hyprloc
 local copy_pipe      = " | cliphist -db-path /tmp/cliphist_db decode | wl-copy"
 local delete_pipe    = " | cliphist -db-path /tmp/cliphist_db delete"
 local pterm_vars     = "HISTFILE=/dev/null PS1='\\e[32;01m\\W\\e[0m $ ' "
-local pterm_opts     = " -T 'Private Terminal' --config-file ~/.config/alacritty/alacritty.toml --working-directory /tmp -e bash --rcfile ~/.aliases"
-local private_term   = pterm_vars .. terminal .. pterm_opts
+local pterm_opts     = " -T 'Private Terminal' --config-file ~/.config/alacritty/alacritty.toml -e sh -c \"cd /tmp ; " .. pterm_vars .. "bash --rcfile ~/.aliases\""
+local private_term   = terminal .. pterm_opts
 local qr_scanner     = 'ZBARURL="$(zbarimg --raw <(hyprshot -m region -raw) 2> /dev/null)"; [ -n $ZBARURL ] && dunstify -A $ZBARURL,"Copy" "QR code detected !" "$ZBARURL" | wl-copy'
 local ruler          = 'pkill ^rlr || rlr'
 
@@ -42,22 +42,23 @@ hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_raw(terminal2))
 hl.bind(mainMod .. " + CTRL + RETURN", hl.dsp.exec_cmd(private_term))
 hl.bind(mainMod .. " + B", hl.dsp.exec_raw(browser))
 hl.bind(mainMod .. " + CTRL + R", hl.dsp.exec_cmd(ruler))
+hl.bind("CTRL + ALT + R", hl.dsp.exec_cmd("hyprctl reload"), {locked = true})
 
 -- Shortcuts
 hl.bind("ALT + TAB", function()
 	hl.dispatch(hl.dsp.window.cycle_next())
 	hl.dispatch(hl.dsp.window.alter_zorder({mode = "top"}))
-end)
+end, {repeating = true})
 
 hl.bind("ALT + SHIFT + TAB", function()
 		hl.dispatch(hl.dsp.window.cycle_next({next = false}))
 	  hl.dispatch(hl.dsp.window.alter_zorder({mode = "top"}))
-end)
+end, {repeating = true})
 
 hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd("pkill ^wlogout || timeout 10 wlogout -l ~/.config/wlogout/hyprland -n -b 6 -m 350"))
 hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("GTK_THEME= missioncenter"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_raw(fileManager))
-hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(wallpaper))
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(wallpaper_pick))
 hl.bind(mainMod .. " + C", hl.dsp.exec_raw("hyprpicker -a"))
 
 local live_wallpaper = {}
@@ -71,28 +72,11 @@ hl.bind(mainMod .. " + SHIFT + I",function()
 	hl.dispatch(hl.dsp.exec_cmd('pkill -9 "^mpvpaper" ; mpvpaper -f "*" -o "--loop-playlist=inf" -s -p ' .. live_wallpaper[index_v]))
 end)
 
-local _wallpaper = {}
-local index_i = 1
-local i_position = {
-	"top-left",
-	"top-right",
-	"bottom-left",
-	"bottom-right",
-	"top",
-	"bottom",
-	"left",
-	"right"
-}
-
-for image in io.popen('mlocate ~/.local/share/wallpapers/Image 2>/dev/null | grep -E "\\.jpg|\\.png|\\.jpeg|\\.webp|\\.gif"'):lines() do
-	table.insert(_wallpaper, image)
-end
-
 hl.bind(mainMod .. " + CTRL + I",function()
-	index_i = (index_i % #_wallpaper) + 1
-	local __wallpaper = _wallpaper[index_i]
-	hl.dispatch(hl.dsp.exec_cmd('pkill -9 "^mpvpaper" ; awww img -a -t grow "' .. __wallpaper .. '" --transition-pos ' .. i_position[math.random(#i_position)] .. ' --transition-step 90 --transition-duration .75'))
-	hl.dispatch(hl.dsp.exec_cmd('ln -sf "' .. __wallpaper .. '" /tmp/wallpaper'))
+	index_i = (index_i % #wallpapers) + 1
+	local wallpaper = wallpapers[index_i]
+	hl.dispatch(hl.dsp.exec_cmd('pkill -9 "^mpvpaper" ; awww img -a -t grow "' .. wallpaper .. '" --transition-pos ' .. i_position[math.random(#i_position)] .. ' --transition-step 90 --transition-duration .75'))
+	hl.dispatch(hl.dsp.exec_cmd('ln -sf "' .. wallpaper .. '" /tmp/wallpaper'))
 end)
 
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
@@ -112,16 +96,16 @@ hl.bind(mainMod .. " + " .. dot, hl.dsp.exec_cmd(emoji .. "| cut -d \" \" -f 1 |
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock --immediate-render"))
 
 -- Move focus with mainMod + vim keys
-hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left"  }))
-hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up"    }))
-hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down"  }))
+hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left"  }), {repeating = true})
+hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }), {repeating = true})
+hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up"    }), {repeating = true})
+hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down"  }), {repeating = true})
 
 -- Move windows with mainMod + vim keys
-hl.bind(mainMod .. " + CTRL + H", hl.dsp.window.move({ direction = "left"  }))
-hl.bind(mainMod .. " + CTRL + L", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. " + CTRL + K", hl.dsp.window.move({ direction = "up"    }))
-hl.bind(mainMod .. " + CTRL + J", hl.dsp.window.move({ direction = "down"  }))
+hl.bind(mainMod .. " + CTRL + H", hl.dsp.window.move({ direction = "left"  }), {repeating = true})
+hl.bind(mainMod .. " + CTRL + L", hl.dsp.window.move({ direction = "right" }), {repeating = true})
+hl.bind(mainMod .. " + CTRL + K", hl.dsp.window.move({ direction = "up"    }), {repeating = true})
+hl.bind(mainMod .. " + CTRL + J", hl.dsp.window.move({ direction = "down"  }), {repeating = true})
 
 -- Screenshot and Screen Recording
 hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -s -m output -m active -o ~/Pictures -f $(date +ScreenShot_%d-%m-%Y_%I:%M:%S.png)"))
@@ -140,11 +124,6 @@ hl.bind(mainMod .. " + CTRL + PRINT",function()
 end)
 hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(kill_recorder))
 hl.bind("ALT + PRINT", hl.dsp.exec_cmd(qr_scanner))
-
--- plugin reload
---hl.bind(mainMod .. " + CTRL + P", function()
---	hl.dispatch(hl.dsp.exec_cmd("hyprctl reload ; hyprctl eval \"dofile ('$HOME/.config/hypr/plugin.lua')\" ; " .. waybar_reset))
---end)
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -179,6 +158,9 @@ hl.bind(mainMod .. " + CTRL + " .. equal, hl.dsp.window.move({ workspace = "r+1"
 hl.bind(mainMod .. " + CTRL + " .. minus, hl.dsp.window.move({ workspace = "r-1" }), {repeating = true})
 hl.bind(mainMod .. " + CTRL + SHIFT + " .. equal, hl.dsp.window.move({ workspace = "m+1" }), {repeating = true})
 hl.bind(mainMod .. " + CTRL + SHIFT + " .. minus, hl.dsp.window.move({ workspace = "m-1" }), {repeating = true})
+
+-- buckle spring
+hl.bind(mainMod .. " + ALT + B", hl.dsp.exec_cmd ("pkill buckle || ~/.local/bin/buckle -f"))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })

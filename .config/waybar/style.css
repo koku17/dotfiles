@@ -4,7 +4,7 @@
 }
 
 tooltip {
-  opacity:0.75;
+	opacity:0.75;
 }
 
 window#waybar {
@@ -75,7 +75,7 @@ window#waybar.hidden {
 }
 
 #custom-clockindicator {
-  font-family: "NotoSans Nerd Font";
+	font-family: "NotoSans Nerd Font";
 	font-size: 14px;
 	margin-top: 2px;
 }

@@ -1,30 +1,30 @@
 {
     "label" : "lock",
-    "action" : "hyprlock & pkill wlogout",
+    "action" : "exec hyprlock",
 		"text" : "Lock",
     "keybind" : "l"
 }
 {
     "label" : "suspend",
-    "action" : "systemctl suspend & pkill wlogout",
+    "action" : "exec systemctl suspend",
 		"text" : "Sleep",
     "keybind" : "u"
 }
 {
     "label" : "hibernate",
-    "action" : "systemctl hibernate",
+    "action" : "exec systemctl hibernate",
 		"text" : "Hibernate",
     "keybind" : "h"
 }
 {
     "label" : "shutdown",
-    "action" : "systemctl poweroff",
+    "action" : "exec systemctl poweroff",
 		"text" : "Shutdown",
     "keybind" : "s"
 }
 {
     "label" : "reboot",
-    "action" : "systemctl reboot",
+    "action" : "exec systemctl reboot",
 		"text" : "Reboot",
     "keybind" : "r"
 }
