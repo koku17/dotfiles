@@ -12,7 +12,7 @@ i_position = {
 	"right"
 }
 
-for image in io.popen('mlocate ~/.local/share/wallpapers/Image 2>/dev/null | grep -E "\\.jpg|\\.png|\\.jpeg|\\.webp|\\.gif"'):lines() do
+for image in io.popen('find ~/.local/share/wallpapers/Image -type f 2>/dev/null | grep -E "\\.jpg|\\.png|\\.jpeg|\\.webp|\\.gif"'):lines() do
 	table.insert(wallpapers, image)
 end
 
@@ -30,7 +30,7 @@ hl.on ("hyprland.start", function()
 	hl.exec_cmd("hyprsunset -t 4500")
 
 	-- services
-	hl.exec_cmd("(sleep 1 ; systemctl start --user hyprpolkitagent ; hypridle)")
+	hl.exec_cmd("/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 & hypridle & disown")
 	-- hl.exec_cmd("ghostty --gtk-single-instance=true --initial-window=false")
 	
 	-- daemon

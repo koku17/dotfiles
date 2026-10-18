@@ -1,4 +1,4 @@
-#! /bin/bashl
+#! /bin/bash
 
 get_temp () {
 	hyprctl hyprsunset temperature

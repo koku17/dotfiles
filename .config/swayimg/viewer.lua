@@ -1,12 +1,12 @@
 swayimg.viewer.set_image_chessboard(10,0xff696969,0xffffffff)
 swayimg.viewer.on_key("q", function() swayimg.exit() end)
-swayimg.viewer.on_key("j", function() swayimg.viewer.switch_image("next") end)
-swayimg.viewer.on_key("space", function() swayimg.viewer.switch_image("next") end)
-swayimg.viewer.on_key("k", function() swayimg.viewer.switch_image("prev") end)
-swayimg.viewer.on_key("backspace", function() swayimg.viewer.switch_image("prev") end)
+swayimg.viewer.on_key("j", function() swayimg.viewer.open("next") end)
+swayimg.viewer.on_key("space", function() swayimg.viewer.open("next") end)
+swayimg.viewer.on_key("k", function() swayimg.viewer.open("prev") end)
+swayimg.viewer.on_key("backspace", function() swayimg.viewer.open("prev") end)
 swayimg.viewer.on_key("i", function()
-	if(swayimg.text.visible()) then
-		swayimg.text.hide() else swayimg.text.show()
+	if(swayimg.text.visible) then
+		swayimg.text.visible = false else swayimg.text.visible = true
 	end
 end)
 	
@@ -15,13 +15,13 @@ swayimg.viewer.on_key("f", function()
 end)
 
 swayimg.on_window_resize(function()
-	if (swayimg.get_mode() == "viewer") then
+	if (swayimg.mode == "viewer") then
 		swayimg.viewer.set_fix_scale("height")
 	end
 end)
 
 swayimg.viewer.on_key("g", function()
-	swayimg.set_mode("gallery")
+	swayimg.mode = "gallery"
 end)
 
 swayimg.viewer.on_key("w", function()

@@ -6,8 +6,12 @@
 hl.monitor({ output = "eDP-1", mode = "1920x1080@60Hz", position = "0x0", scale = 1.25})
 hl.monitor({ output = "desc:Acer Technologies XB253Q TH5SI001852L", mode = "1920x1080@239.76Hz", position = "auto-right", scale = 1})
 hl.monitor({ output = "desc:Technical Concepts Ltd Beyond TV 0x00010000", mode = highres, position = "auto-right", scale = 1})
+hl.monitor({ output = "desc: XBH XBH 0x00000001", mode = highres, position = "auto-right", scale = 2})
+hl.monitor({ output = "desc:RPX Smart Board", mode = "preferred", position = "auto", mirror = "eDP-1"})
+hl.monitor({ output = "desc:Seiko Epson Corporation EPSON PJ 0x01010101", mode = "preferred", position = "auto", mirror = "eDP-1"})
+
 --hl.monitor({ output = "DP-1", mode = "1920x1080@60.00Hz", position = "auto", scale = 1})
---hl.monitor({ output = "HDMI-A-1", mode = "highres", position = "auto-left", scale = 1})
+--hl.monitor({ output = "HDMI-A-1", mode = "highres", position = "auto-left", scale = 2})
 --hl.monitor({ output = "desc:Acer Technologies RS272 G0 152200B0C4202", mode = "highres", position = "auto-right", scale = 1})
 --hl.monitor({ output = "desc:IFP IFP Display", mode = "highres", position = "auto-right", scale = 2})
 -- monitor({ output = "desc:IFP IFP Display", mode = "preferred", position = "auto", scale = 1, mirror = "eDP-1"})
@@ -24,8 +28,8 @@ hl.monitor({ output = "desc:Technical Concepts Ltd Beyond TV 0x00010000", mode =
 -- hl.monitor({ output = "eDP-1", disabled = true })
 
 --  Acer 240hz monitor
--- monitor = desc:Acer Technologies XB253Q TH5SI001852L,3840x2160@59.94Hz,auto-right,1
--- monitor = desc:Acer Technologies XB253Q TH5SI001852L, disabled = true })
+--hl.monitor ({ output = "desc:Acer Technologies XB253Q TH5SI001852L", mode = "3840x2160@59.94Hz", position = "auto-right", scale = 2})
+--hl.monitor({ output = "desc:Acer Technologies XB253Q TH5SI001852L", disabled = true })
 
 --  Class TV display
 -- monitor({ output = "desc:IFP IFP Display", mode = "3840x2160@60.00Hz", position = "auto-right", scale = 1 })

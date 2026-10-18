@@ -1,8 +1,8 @@
-swayimg.text.hide()
-swayimg.text.set_size(14)
+swayimg.text.visible = false
+swayimg.text.size = 14
 
 swayimg.on_window_resize(function()
-	if (swayimg.get_mode() == "viewer") then
+	if (swayimg.mode == "viewer") then
 		swayimg.viewer.set_fix_scale("fill")
 	end
 end)
@@ -15,18 +15,18 @@ function set_viewer_awww_wallpaper()
 	end
 end
 
-swayimg.viewer.set_default_scale("fill")
+swayimg.viewer.default_scale = "fill"
 swayimg.viewer.on_key("w", function() set_viewer_awww_wallpaper() end)
 swayimg.viewer.on_key("q", function() swayimg.exit() end)
-swayimg.viewer.on_key("j", function() swayimg.viewer.switch_image("next") end)
-swayimg.viewer.on_key("h", function() swayimg.viewer.switch_image("next") end)
-swayimg.viewer.on_key("space", function() swayimg.viewer.switch_image("next") end)
-swayimg.viewer.on_key("k", function() swayimg.viewer.switch_image("prev") end)
-swayimg.viewer.on_key("l", function() swayimg.viewer.switch_image("prev") end)
-swayimg.viewer.on_key("backspace", function() swayimg.viewer.switch_image("prev") end)
+swayimg.viewer.on_key("j", function() swayimg.viewer.open("next") end)
+swayimg.viewer.on_key("h", function() swayimg.viewer.open("next") end)
+swayimg.viewer.on_key("space", function() swayimg.viewer.open("next") end)
+swayimg.viewer.on_key("k", function() swayimg.viewer.open("prev") end)
+swayimg.viewer.on_key("l", function() swayimg.viewer.open("prev") end)
+swayimg.viewer.on_key("backspace", function() swayimg.viewer.open("prev") end)
 swayimg.viewer.on_key("i", function()
-	if(swayimg.text.visible()) then
-		swayimg.text.hide() else swayimg.text.show()
+	if(swayimg.text.visible) then
+		swayimg.text.visible = false else swayimg.text.visible = true
 	end
 end)
 
@@ -42,15 +42,15 @@ swayimg.viewer.on_key("tab", function()
 	swayimg.set_mode("gallery")
 end)
 
-swayimg.gallery.set_border_size(1)
-swayimg.gallery.set_thumb_size(300)
-swayimg.gallery.set_aspect("fill")
-swayimg.gallery.set_padding_size(20)
-swayimg.gallery.set_selected_scale(1)
-swayimg.gallery.enable_preload(true)
-swayimg.gallery.set_selected_color(0x00000000)
-swayimg.gallery.set_unselected_color(0x00000000)
-swayimg.gallery.set_window_color(0x80000000)
+swayimg.gallery.border_size = 1
+swayimg.gallery.thumb_size = 300
+swayimg.gallery.aspect = "fill"
+swayimg.gallery.padding_size = 20
+swayimg.gallery.selected_scale = 1
+swayimg.gallery.preload = true
+swayimg.gallery.selected_color = 0x00000000
+swayimg.gallery.unselected_color = 0x00000000
+swayimg.gallery.window_color = 0x80000000
 
 positions = {
 	"top-left", 

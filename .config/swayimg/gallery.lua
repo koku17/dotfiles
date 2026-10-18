@@ -1,8 +1,8 @@
 swayimg.gallery.on_key("q", function() swayimg.exit() end)
-swayimg.gallery.on_key("h", function() swayimg.gallery.switch_image("left") end)
-swayimg.gallery.on_key("j", function() swayimg.gallery.switch_image("down") end)
-swayimg.gallery.on_key("k", function() swayimg.gallery.switch_image("up") end)
-swayimg.gallery.on_key("l", function() swayimg.gallery.switch_image("right") end)
+swayimg.gallery.on_key("h", function() swayimg.gallery.open("left") end)
+swayimg.gallery.on_key("j", function() swayimg.gallery.open("down") end)
+swayimg.gallery.on_key("k", function() swayimg.gallery.open("up") end)
+swayimg.gallery.on_key("l", function() swayimg.gallery.open("right") end)
 swayimg.gallery.on_key("i", function()
 	if(swayimg.text.visible()) then
 		swayimg.text.hide() else swayimg.text.show()

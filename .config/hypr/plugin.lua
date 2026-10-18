@@ -20,7 +20,7 @@ hl.config ({
 hl.plugin.hyprbars.add_button({
     fg_color = "rgba(FF435DBF)",
     bg_color = "rgba(00000000)",
-    size = 23,
+    size = 24,
     icon = "󰅙",
     action = "hyprctl dispatch 'hl.dsp.window.close()'",
 })
@@ -28,7 +28,7 @@ hl.plugin.hyprbars.add_button({
 hl.plugin.hyprbars.add_button({
     bg_color = "rgba(00000000)",
     fg_color = "rgba(BA13CEBF)",
-    size = 23,
+    size = 24,
     icon = "󰐗",
     action = "hyprctl dispatch 'hl.dsp.window.fullscreen({ mode = 1 })'",
 })
@@ -36,7 +36,7 @@ hl.plugin.hyprbars.add_button({
 hl.plugin.hyprbars.add_button({
     bg_color = "rgba(00000000)",
     fg_color = "rgba(00000000)",
-		size = 23,
+		size = 24,
 		icon = " ",
 		action = ""
 })

@@ -138,7 +138,8 @@
 		"tooltip-format": "Notifications"
 	},
 	"custom/center-text": {
-		"format": "躺平",
+		//"format": "躺平",
+		"format": "॥श्री॥",
 		"interval": "once"
 	}
 }

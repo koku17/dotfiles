@@ -17,7 +17,10 @@ hl.config({
 		animate_mouse_windowdragging = false,
 		close_special_on_empty = false,
 		enable_anr_dialog = true,
-		anr_missed_pings = 5
+		anr_missed_pings = 5,
+		allow_session_lock_restore = fasle,
+		lockdead_screen_delay = 100,
+		--bell_sound = "/usr/share/sounds/freedesktop/stereo/bell.oga"
 	},
 	opengl = { nvidia_anti_flicker = false },
 	 render = {

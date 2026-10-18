@@ -5,20 +5,20 @@ local fileManager    = "nemo"
 local menu           = "pkill wofi || GTK_THEME= wofi"
 local browser        = "chromium"
 local waybar_reset   = "pkill ^waybar ; waybar &"
-local wallpaper_pick = 'pkill -9 "^mpvpaper" || (pkill -f -9 "^swayimg -v --viewer" || swayimg -v --viewer -c ~/.config/swayimg/wallpaper.lua ~/.local/share/wallpapers/Image/*)'
+local wallpaper_pick = 'pkill -9 "^mpvpaper" || (pkill -f -9 "^swayimg -v --viewer" || swayimg -v --viewer -c ~/.config/swayimg/wallpaper.lua $([ -f /tmp/wallpaper ] && readlink /tmp/wallpaper) ~/.local/share/wallpapers/Image/*)'
 local recorder       = 'wf-recorder --audio="$(pactl get-default-sink).monitor" -r 30 -c hevc_nvenc -p rc=constqp -p qp=20 -p preset=p5 -f "$HOME/Videos/Screen Reocrd/$(date +Record_%d-%m-%Y_%I-%M.mkv)"'
 local kill_recorder  = "pkill ^wf-recorder"
 local notification   = "swaync-client -t -sw"
 local clipboard      = "pkill ^wofi || cliphist -db-path /tmp/cliphist_db list | wofi -S dmenu -r \"echo '%s' | sed 's/^.*\t//' | head -c 50 | tr '\n' ' '\""
 local emoji          = 'pkill ^wofi || cat ~/.config/wofi/emojis | wofi -S dmenu -c ~/.config/wofi/emoji'
 local run_cmd        = "WOFI_RUN=$(wofi --dmenu) ; [ -n \"$WOFI_RUN\" ] && alacritty -e bash --rcfile ~/.aliases -ic \"$WOFI_RUN ; echo ; read -n 1 -p 'Press any key to Exit ...' wait\""
-local lock           = "pidof hyprlock || __GLX_VENDOR_LIBRARY_NAME=mesa hyprlock -q"
+local lock           = "pidof hyprlock || hyprlock"
 local copy_pipe      = " | cliphist -db-path /tmp/cliphist_db decode | wl-copy"
 local delete_pipe    = " | cliphist -db-path /tmp/cliphist_db delete"
-local pterm_vars     = "HISTFILE=/dev/null PS1='\\e[32;01m\\W\\e[0m $ ' "
-local pterm_opts     = " -T 'Private Terminal' --config-file ~/.config/alacritty/alacritty.toml -e sh -c \"cd /tmp ; " .. pterm_vars .. "bash --rcfile ~/.aliases\""
-local private_term   = terminal .. pterm_opts
-local qr_scanner     = 'ZBARURL="$(zbarimg --raw <(hyprshot -m region -raw) 2> /dev/null)"; [ -n $ZBARURL ] && dunstify -A $ZBARURL,"Copy" "QR code detected !" "$ZBARURL" | wl-copy'
+local pterm_vars     = "ZDOTDIR=~/.private/zsh/ "
+local pterm_opts     = " -T 'Private Terminal' --config-file ~/.config/alacritty/alacritty.toml -e zsh"
+local private_term   = pterm_vars .. terminal .. pterm_opts
+local qr_scanner     = 'ZBARURL="$(zbarimg --nodbus --raw <(hyprshot -m region -raw) 2> /dev/null)"; [ -n $ZBARURL ] && dunstify -A $ZBARURL,"Copy" "QR code detected !" "$ZBARURL" | wl-copy'
 local ruler          = 'pkill ^rlr || rlr'
 
 -- keycodes
@@ -33,7 +33,7 @@ hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.kill(), { repeating = true })
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = 1 }))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(waybar_reset))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd(lock))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_raw(lock))
 hl.bind(mainMod .. " + CTRL + X", hl.dsp.exit(), { locked = true })
 
 -- Apps
@@ -52,7 +52,7 @@ end, {repeating = true})
 
 hl.bind("ALT + SHIFT + TAB", function()
 		hl.dispatch(hl.dsp.window.cycle_next({next = false}))
-	  hl.dispatch(hl.dsp.window.alter_zorder({mode = "top"}))
+	  hl.dispatch(hl.dsp.window.bring_to_top())
 end, {repeating = true})
 
 hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd("pkill ^wlogout || timeout 10 wlogout -l ~/.config/wlogout/hyprland -n -b 6 -m 350"))
@@ -63,7 +63,7 @@ hl.bind(mainMod .. " + C", hl.dsp.exec_raw("hyprpicker -a"))
 
 local live_wallpaper = {}
 local index_v = 1
-for video in io.popen('mlocate ~/.local/share/wallpapers/Video 2>/dev/null | grep -E "\\.mp4|\\.mkv|\\.gif|\\.webm|\\.mpeg|\\.mov"'):lines() do
+for video in io.popen('find ~/.local/share/wallpapers/Video -type f 2>/dev/null | grep -E "\\.mp4|\\.mkv|\\.gif|\\.webm|\\.mpeg|\\.mov"'):lines() do
 	table.insert(live_wallpaper, video)
 end
 
@@ -93,9 +93,15 @@ hl.bind(mainMod .. " + CTRL + " .. comma, hl.dsp.exec_cmd("pkill ^wofi ; cliphis
 hl.bind(mainMod .. " + " .. dot, hl.dsp.exec_cmd(emoji .. "| cut -d \" \" -f 1 | tr '\n' ' ' | sed 's/ //g' | wl-copy"))
 
 -- Lock screen
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock --immediate-render"))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd(lock))
+-- fix broken hyprlock
+hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_raw([[
+	pkill hyprlock
+	[ -n $HYPRLAND_INSTANCE_SIGNATURE ] && physlock -m -s -d
+	hyprctl --instance 0 eval 'hl.clear_crashed_lockscreen()'
+]]),{locked = true})
 
--- Move focus with mainMod + vim keys
+-- Focus with mainMod + vim keys
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left"  }), {repeating = true})
 hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }), {repeating = true})
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up"    }), {repeating = true})
@@ -108,11 +114,17 @@ hl.bind(mainMod .. " + CTRL + K", hl.dsp.window.move({ direction = "up"    }), {
 hl.bind(mainMod .. " + CTRL + J", hl.dsp.window.move({ direction = "down"  }), {repeating = true})
 
 -- Screenshot and Screen Recording
-hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -s -m output -m active -o ~/Pictures -f $(date +ScreenShot_%d-%m-%Y_%I:%M:%S.png)"))
-hl.bind("SHIFT + PRINT", hl.dsp.exec_raw("hyprshot -s -m region --clipboard-only"))
+--opacity disable and enable before and after screenshots respectively
+local disable_opacity = "hyprctl eval 'hl.config({ decoration = {inactive_opacity = 1}})'"
+local enable_opacity = "hyprctl eval 'hl.config({ decoration = {inactive_opacity = 0.7}})'"
+
+hl.bind("PRINT", hl.dsp.exec_raw(disable_opacity .. " ; hyprshot -s -m output -m active -o ~/Pictures/Screenshots -f $(date +ScreenShot_%d-%m-%Y_%I:%M:%S.png) ; ".. enable_opacity))
+hl.bind("SHIFT + PRINT", hl.dsp.exec_raw(disable_opacity .. " ; hyprshot -s -m region --clipboard-only ; ".. enable_opacity))
+hl.bind("CTRL + PRINT", hl.dsp.exec_raw(disable_opacity .. " ; hyprshot -s -m window --clipboard-only ; ".. enable_opacity))
+hl.bind("CTRL + SHIFT + PRINT", hl.dsp.exec_raw(disable_opacity .. " ; hyprshot -z -s -m region --clipboard-only ; ".. enable_opacity))
+
 --hl.bind("CTRL + PRINT", hl.dsp.exec_cmd([[grim -T "$(hyprprop | jq -r '"\(.stableId)"')" - | wl-copy]]))
-hl.bind("CTRL + PRINT", hl.dsp.exec_raw("hyprshot -s -m window --clipboard-only"))
-hl.bind("CTRL + SHIFT + PRINT", hl.dsp.exec_raw("hyprshot -z -s -m region --clipboard-only"))
+
 hl.bind(mainMod .. " + PRINT",function()
 	local monitor_name = hl.get_active_monitor().name
 	hl.dispatch(hl.dsp.exec_cmd(recorder .. " -o " .. monitor_name))
@@ -122,6 +134,7 @@ hl.bind(mainMod .. " + CTRL + PRINT",function()
 	local monitor_name = hl.get_active_monitor().name
 	hl.dispatch(hl.dsp.exec_cmd(recorder .. [[ -g "$(slurp)" -o ]] .. monitor_name))
 end)
+
 hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(kill_recorder))
 hl.bind("ALT + PRINT", hl.dsp.exec_cmd(qr_scanner))
 
@@ -190,16 +203,16 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
 local audio_change = "paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_raw("pamixer -i 5 ; " .. audio_change),          { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_raw("pamixer -d 5 ; " .. audio_change),          { locked = true, repeating = true })
-hl.bind("XF86AudioMute",        hl.dsp.exec_raw("pamixer --toggle-mute ; " .. audio_change), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_raw("brightnessctl set 5%+"),                    { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown",hl.dsp.exec_raw("brightnessctl set 5%-"),                    { locked = true, repeating = true })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"),                                  { locked = true, repeating = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl --all-players play-pause"))
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"),                              { locked = true, repeating = true })
-hl.bind("XF86Calculator", hl.dsp.exec_raw("pidof qalculate-gtk || qalculate-gtk"))
-hl.bind("XF86Launch2", hl.dsp.exec_raw("lutris"))
+hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_raw("pamixer -i 5 ; " .. audio_change),          { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_raw("pamixer -d 5 ; " .. audio_change),          { locked = true, repeating = true })
+hl.bind("XF86AudioMute",         hl.dsp.exec_raw("pamixer --toggle-mute ; " .. audio_change), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_raw("brightnessctl set 5%+"),                    { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_raw("brightnessctl set 5%-"),                    { locked = true, repeating = true })
+hl.bind("XF86AudioNext",         hl.dsp.exec_cmd("playerctl next"),                           { locked = true, repeating = true })
+hl.bind("XF86AudioPlay",         hl.dsp.exec_cmd("playerctl --all-players play-pause"))
+hl.bind("XF86AudioPrev",         hl.dsp.exec_cmd("playerctl previous"),                       { locked = true, repeating = true })
+hl.bind("XF86Calculator",        hl.dsp.exec_raw("pidof qalculate-gtk || qalculate-gtk"))
+hl.bind("XF86Launch2",           hl.dsp.exec_raw("lutris"))
 
 -- Laptop Lid
-hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
+hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd(lock))

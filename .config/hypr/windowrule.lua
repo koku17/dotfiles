@@ -7,6 +7,16 @@ hl.window_rule({
 	move = { "cursor_x/2", "(cursor_y/2+25*(1-cursor_y/monitor_h))"}
 })
 
+hl.window_rule({
+	match = {
+		class = "chromium",
+		title = "Chromium",
+  	initial_class = "chromium",
+  	initial_title = "Chromium"
+	},
+	center = true
+})
+
 -- Supress maximize request
 hl.window_rule({
 		name	= "suppress-maximize-events",
@@ -17,6 +27,16 @@ hl.window_rule({
 -- tiled applications
 hl.window_rule({
 	match = { class = "Alacritty|com.mitchellh.ghostty" },
+	tile = true
+})
+
+hl.window_rule({
+	match = {
+	class = "virt-manager",
+  title = "(.*) on QEMU/KVM",
+  initial_class= "virt-manager",
+  initial_title = "Windows 10 on QEMU/KVM",
+	},
 	tile = true
 })
 
@@ -51,7 +71,7 @@ hl.window_rule({
 -- 0.5 aspect raito
 hl.window_rule ({
 	match = {
-		class = "nemo",
+		class = "nemo|pcmanfm",
 		title = "negative:Select .*|.* Properties|Folder Sharing"
 	},
 	size = { "monitor_w*0.5", "monitor_h*0.5"}
@@ -80,13 +100,19 @@ hl.layer_rule({
 })
 
 hl.layer_rule({
-	match = { namespace = "nwg-dock|wofi|swaync-control-center" },
+	match = { namespace = "nwg-dock|wofi|swaync-control-center|waybar|quickshell" },
 	ignore_alpha = 0
 })
 
 hl.layer_rule({
 	match = { namespace = "nwg-dock|waybar|wofi|logout_dialog|swaync-control-center" },
 	blur = true
+})
+
+hl.layer_rule ({
+	match = { namespace = "swaync-control-center"},
+	blur = true,
+	blur_popups = true
 })
 
 hl.layer_rule({
@@ -120,7 +146,7 @@ hl.window_rule({
 })
 
 hl.window_rule({
-	match = { class = "com.mitchellh.ghostty|nemo|auto-cpufreq" },
+	match = { class = "com.mitchellh.ghostty|nemo|pcmanfm" },
 	opacity = 0.8
 })
 
@@ -141,11 +167,11 @@ hl.window_rule({
 })
 
 -- dynamic rules
-hl.on ("window.active", function()
-	local w = hl.get_active_window()
-	if not w or not w.floating then
-		return
-	else
-		hl.dispatch(hl.dsp.window.alter_zorder({mode = "top"}))
-	end
-end)
+--hl.on ("window.active", function()
+--	local w = hl.get_active_window()
+--	if not w or not w.floating then
+--		return
+--	else
+--		hl.dispatch(hl.dsp.window.bring_to_top())
+--	end
+--end)

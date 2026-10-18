@@ -23,5 +23,5 @@ hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 -- hl.env("AQ_DRM_DEVICES", "/dev/dri/card0:/dev/dri/card2:/dev/dri/card1")
 
 hl.env("ELECTRON_OZONE_PLATFROM_HINT", "wayland")
-hl.env("WLR_NO_HARDWARE_CURSORS", "0")
+--hl.env("WLR_NO_HARDWARE_CURSORS", "0")
 -- hl.env("XDG_MENU_PREFIX", "plasma-")
